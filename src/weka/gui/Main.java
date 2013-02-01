@@ -121,7 +121,8 @@ public class Main
   
   /** for serialization. */
   private static final long serialVersionUID = 1453813254824253849L;
-  
+  private static final long trialNError = 1453813254824253849L;
+
   /**
    * DesktopPane with background image.
    * 
