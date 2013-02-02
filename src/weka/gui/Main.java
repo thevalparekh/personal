@@ -137,6 +137,7 @@ public class Main
     
     /** the actual background image. */
     protected Image m_Background;
+    private  int a = 10;
     
     /**
      * intializes the desktop pane.
