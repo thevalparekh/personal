@@ -32,9 +32,9 @@ InitGenericObjectEditorFilter=True
 #   standalone - the tab does not depend on the PreprocessPanel to load the data first
 #
 Tabs=weka.gui.explorer.ClassifierPanel,\
-     weka.gui.explorer.ClustererPanel,\
-     weka.gui.explorer.AssociationsPanel,\
-     weka.gui.explorer.AttributeSelectionPanel,\
+     #weka.gui.explorer.ClustererPanel,\
+     #weka.gui.explorer.AssociationsPanel,\
+     #weka.gui.explorer.AttributeSelectionPanel,\
      weka.gui.explorer.VisualizePanel
 
 # the initial directory for opening datasets.

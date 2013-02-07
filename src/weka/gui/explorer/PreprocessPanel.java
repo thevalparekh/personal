@@ -371,13 +371,13 @@ public class PreprocessPanel
     buttons.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
     buttons.setLayout(new GridLayout(1, 6, 5, 5));
     buttons.add(m_OpenFileBut);
-    buttons.add(m_OpenURLBut);
-    buttons.add(m_OpenDBBut);
-    buttons.add(m_GenerateBut);
+    //buttons.add(m_OpenURLBut);
+    //buttons.add(m_OpenDBBut);
+    /*buttons.add(m_GenerateBut);
     buttons.add(m_UndoBut);
     buttons.add(m_EditBut);
     buttons.add(m_SaveBut);
-
+*/
     JPanel attInfo = new JPanel();
 
     attInfo.setLayout(new BorderLayout());
@@ -448,7 +448,7 @@ public class PreprocessPanel
 
     JPanel rhs = new JPanel();
     rhs.setLayout(new BorderLayout());
-    rhs.add(attVis, BorderLayout.CENTER);
+    //rhs.add(attVis, BorderLayout.CENTER);
 
     JPanel relation = new JPanel();
     relation.setLayout(new GridLayout(1, 2));
@@ -457,7 +457,7 @@ public class PreprocessPanel
 
     JPanel middle = new JPanel();
     middle.setLayout(new BorderLayout());
-    middle.add(filter, BorderLayout.NORTH);
+   // middle.add(filter, BorderLayout.NORTH);
     middle.add(relation, BorderLayout.CENTER);
 
     setLayout(new BorderLayout());

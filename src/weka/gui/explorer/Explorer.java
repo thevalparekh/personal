@@ -215,8 +215,7 @@ public class Explorer
 	m_PreprocessPanel.getTabTitle(),
 	null,
 	m_PreprocessPanel,
-	m_PreprocessPanel.getTabTitleToolTip());
-    
+	m_PreprocessPanel.getTabTitleToolTip());  
     // initialize additional panels
     String[] tabs = ExplorerDefaults.getTabs();
     Hashtable<String, HashSet> tabOptions = new Hashtable<String, HashSet>();
@@ -272,7 +271,7 @@ public class Explorer
     // add components to layout
     setLayout(new BorderLayout());
     add(m_TabbedPane, BorderLayout.CENTER);
-    add(m_LogPanel, BorderLayout.SOUTH);
+    //add(m_LogPanel, BorderLayout.SOUTH);
   }
   
   /**

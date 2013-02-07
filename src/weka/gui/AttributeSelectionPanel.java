@@ -371,18 +371,19 @@ public class AttributeSelectionPanel
     JPanel p1 = new JPanel();
     p1.setBorder(BorderFactory.createEmptyBorder(10, 5, 10, 5));
     p1.setLayout(new GridLayout(1, 4, 5, 5));
-    if (include) {
+   if (include) {
       p1.add(m_IncludeAll);
     }
     if (remove) {
       p1.add(m_RemoveAll);
     }
-    if (invert) {
+    //sonal - commented this code as it is not needed
+    /*if (invert) {
       p1.add(m_Invert);
     }
     if (pattern) {
       p1.add(m_Pattern);
-    }
+    }*/
 
     setLayout(new BorderLayout());
     if (include || remove || invert || pattern) {
