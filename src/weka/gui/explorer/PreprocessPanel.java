@@ -81,6 +81,7 @@ import java.io.FileWriter;
 import java.io.ObjectOutputStream;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -372,7 +373,7 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				try {
-					Map<String, Double> attributeMap = new HashMap<String, Double>();
+					Map<Attribute, Double> attributeMap = new HashMap<Attribute, Double>();
 					int classIndex = m_Instances.numAttributes() - 1;
 					List<String> classValues = new ArrayList<String>(); 
 					Map<String, Integer> classSamples = new HashMap<String, Integer>();
@@ -425,7 +426,7 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 					Enumeration<Attribute> enu = m_Instances.enumerateAttributes();
 				    while (enu.hasMoreElements()) {
 				      Attribute attribute = (Attribute) enu.nextElement();
-				      attributeMap.put(attribute.name(), 0.0);
+				      attributeMap.put(attribute, 0.0);
 				      double attributeEntropy = 0.0;
 				      Map<String, HashMap<String, Integer>> attrValues = new HashMap<String, HashMap<String, Integer>>();
 				      
@@ -475,7 +476,11 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 				    		  for(Entry<String,Integer> entry : classSetEntry.entrySet()) {
 				    			  if (entry.getValue().intValue() > 0 ) {
 				    				  tempSetCount += entry.getValue().intValue();
-					    			  double probability = entry.getValue().intValue() / (setCount * 1.0);
+				    			  }
+				    		  }
+				    		  for(Entry<String,Integer> entry : classSetEntry.entrySet()) {
+				    			  if (entry.getValue().intValue() > 0 ) {
+					    			  double probability = entry.getValue().intValue() / (tempSetCount * 1.0);
 					    			  probability = probability * (Math.log10(probability) / Math.log10(2));
 					    			  attributeSetInformation +=probability;
 				    			  }
@@ -490,7 +495,7 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 				       */
 				      /*reset class samples*/
 				      attributeEntropy *= -1;
-			    	  attributeMap.put(attribute.name(), attributeEntropy);
+			    	  attributeMap.put(attribute, attributeEntropy);
 				      
 				      
 				 
@@ -504,12 +509,60 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 //				        System.out.println("no problem got it");
 //				    }
 				    }
-				    for(Entry<String, Double> attrEntry : attributeMap.entrySet()) {
-				    	  System.out.println("Attribute = " + attrEntry.getKey() + "::: " + attrEntry.getValue().doubleValue() + ":::"  + (sampleClassInformation - attrEntry.getValue().doubleValue()));
+				    for(Entry<Attribute, Double> attrEntry : attributeMap.entrySet()) {
+				    	  System.out.println("Attribute = " + attrEntry.getKey().name() + "::: " + attrEntry.getValue().doubleValue() + ":::"  + (sampleClassInformation - attrEntry.getValue().doubleValue()));
 				    }
+				    /*lets remove unwanted attributes
+				     * and perform naive bayes on remaining attributes
+				     */
+				    try {
+						Remove r = new Remove();
+						int [] r1 = new int[attributeMap.size()];
+						Arrays.fill(r1, 0);
+						int selCount = 0;
+						
+						for(Entry<Attribute, Double> attrEntry : attributeMap.entrySet()) {
+							if ((sampleClassInformation - attrEntry.getValue().doubleValue()) < 0.5) {
+								r1[selCount] = attrEntry.getKey().index();
+								selCount++;
+							}
+						}
+					      
+					    int [] selected = new int[selCount];
+					    System.arraycopy(r1, 0, selected, 0, selCount);
+						if (selected.length == 0) {
+							return;
+						}
+						if (selected.length == m_Instances.numAttributes()) {
+							// Pop up an error optionpane
+							JOptionPane.showMessageDialog(PreprocessPanel.this,
+									Messages.getInstance().getString("PreprocessPanel_JOptionPaneShowMessageDialog_Text_First"),
+									Messages.getInstance().getString("PreprocessPanel_JOptionPaneShowMessageDialog_Text_Second"),
+									JOptionPane.ERROR_MESSAGE);
+							m_Log.logMessage(Messages.getInstance().getString("PreprocessPanel_Log_LogMessage_Text_First"));
+							m_Log.statusMessage(Messages.getInstance().getString("PreprocessPanel_Log_StatusMessage_Text_First"));
+							return;
+						}
+						r.setAttributeIndicesArray(selected);
+						applyFilter(r);
+					} catch (Exception ex) {
+						if (m_Log instanceof TaskLogger) {
+							((TaskLogger)m_Log).taskFinished();
+						}
+						// Pop up an error optionpane
+						JOptionPane.showMessageDialog(PreprocessPanel.this,
+								Messages.getInstance().getString("PreprocessPanel_JOptionPaneShowMessageDialog_Text_Third")
+								+ ex.getMessage(),
+								Messages.getInstance().getString("PreprocessPanel_JOptionPaneShowMessageDialog_Text_Fourth"),
+								JOptionPane.ERROR_MESSAGE);
+						m_Log.logMessage(Messages.getInstance().getString("PreprocessPanel_Log_LogMessage_Text_Second") + ex.getMessage());
+						m_Log.statusMessage(Messages.getInstance().getString("PreprocessPanel_Log_StatusMessage_Text_Second"));
+					}
 				} catch (Exception e1) {
-					
+					System.out.println("Main Loop");
 				}
+				
+				
 			}
 		});
 		JPanel p1 = new JPanel();
