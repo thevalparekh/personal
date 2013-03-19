@@ -1,0 +1,70 @@
+# Mappings for classes to be handled in the GenericObjectEditor
+#
+# Format:
+#   <class to be handled>=<class to handle it>
+#
+# Notes: 
+# - array classes have to be suffixed with "[]"
+# - full classname has to be provided
+#
+# author:  FracPete (fracpete at waikato dot ac dot nz)
+# version: $Revision: 6333 $
+
+# general
+java.lang.Object[]=features.gui.GenericArrayEditor
+java.io.File=features.gui.FileEditor
+java.text.SimpleDateFormat=features.gui.SimpleDateFormatEditor
+
+# core
+features.core.SelectedTag=features.gui.SelectedTagEditor
+features.core.DistanceFunction=features.gui.GenericObjectEditor
+features.core.Range=features.gui.GenericObjectEditor
+features.core.Range[]=features.gui.GenericArrayEditor
+features.core.converters.Loader=features.gui.GenericObjectEditor
+features.core.converters.Saver=features.gui.GenericObjectEditor
+features.core.neighboursearch.NearestNeighbourSearch=features.gui.GenericObjectEditor
+features.core.neighboursearch.balltrees.BallTreeConstructor=features.gui.GenericObjectEditor
+features.core.neighboursearch.balltrees.BallSplitter=features.gui.GenericObjectEditor
+features.core.neighboursearch.kdtrees.KDTreeNodeSplitter=features.gui.GenericObjectEditor
+features.core.stemmers.Stemmer=features.gui.GenericObjectEditor
+features.core.tokenizers.Tokenizer=features.gui.GenericObjectEditor
+
+# estimators
+features.estimators.Estimator=features.gui.GenericObjectEditor
+features.estimators.Estimator[]=features.gui.GenericArrayEditor
+
+# filters
+features.filters.Filter=features.gui.GenericObjectEditor
+features.filters.Filter[]=features.gui.GenericArrayEditor
+
+# classifiers
+features.classifiers.Classifier=features.gui.GenericObjectEditor
+features.classifiers.Classifier[]=features.gui.GenericArrayEditor
+features.classifiers.CostMatrix=features.gui.CostMatrixEditor
+features.classifiers.bayes.net.search.SearchAlgorithm=features.gui.GenericObjectEditor
+features.classifiers.bayes.net.estimate.BayesNetEstimator=features.gui.GenericObjectEditor
+features.classifiers.functions.supportVector.Kernel=features.gui.GenericObjectEditor
+features.classifiers.functions.supportVector.RegOptimizer=features.gui.GenericObjectEditor
+#features.classifiers.meta.ensembleSelection.EnsembleSelectionLibrary=features.gui.EnsembleSelectionLibraryEditor
+
+# experiment
+features.experiment.ResultListener=features.gui.GenericObjectEditor
+features.experiment.ResultProducer=features.gui.GenericObjectEditor
+features.experiment.SplitEvaluator=features.gui.GenericObjectEditor
+
+# datagenerators
+features.datagenerators.DataGenerator=features.gui.GenericObjectEditor
+features.datagenerators.ClusterDefinition=features.gui.GenericObjectEditor
+features.datagenerators.ClusterDefinition[]=features.gui.GenericArrayEditor
+
+# associations
+features.associations.Associator=features.gui.GenericObjectEditor
+
+# clusterers
+features.clusterers.Clusterer=features.gui.GenericObjectEditor
+features.clusterers.DensityBasedClusterer=features.gui.GenericObjectEditor
+
+# attribute selection
+features.attributeSelection.ASEvaluation=features.gui.GenericObjectEditor
+features.attributeSelection.ASSearch=features.gui.GenericObjectEditor
+features.attributeSelection.UnsupervisedSubsetEvaluator=features.gui.GenericObjectEditor

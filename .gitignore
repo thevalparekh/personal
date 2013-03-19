@@ -1,6 +1,6 @@
 bin/
-bin/weka/gui/*
+bin/features/gui/*
 .metadata
 bin
-bin/weka/gui
-bin/weka/
+bin/features/gui
+bin/features/

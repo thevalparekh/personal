@@ -1,0 +1,185 @@
+# Customises the list of options given by the GenericObjectEditor
+# for various superclasses.
+#
+# Version: $Revision: 9055 $
+
+# Whether to use the dynamic approach or not (true|false). In case of
+# "false" the old GenericObjectEditor.props file is used:
+UseDynamic=true
+
+# Lists the ResultProducers-Packages I want to choose from
+features.experiment.ResultProducer=\
+  features.experiment
+
+# Lists the ResultListeners-Packages I want to choose from
+features.experiment.ResultListener=\
+  features.experiment
+
+# Lists the SplitEvaluators-Packages I want to choose from
+features.experiment.SplitEvaluator=\
+  features.experiment
+
+# Lists the Classifiers-Packages I want to choose from
+features.classifiers.Classifier=\
+ features.classifiers,\
+ features.classifiers.bayes,\
+ features.classifiers.functions,\
+ features.classifiers.lazy,\
+ features.classifiers.meta,\
+ features.classifiers.meta.nestedDichotomies,\
+ features.classifiers.mi,\
+ features.classifiers.misc,\
+ features.classifiers.trees,\
+ features.classifiers.rules
+
+# Lists the Filters-Packages I want to choose from
+features.filters.Filter= \
+ features.filters, \
+ features.filters.supervised.attribute, \
+ features.filters.supervised.instance, \
+ features.filters.unsupervised.attribute, \
+ features.filters.unsupervised.instance
+
+# Lists the UnsupervisedFilters-Packages I want to choose from
+features.filters.UnsupervisedFilter = \
+ features.filters.unsupervised.attribute, \
+ features.filters.unsupervised.instance
+
+# Lists the Attribute Selection Evaluators-Packages I want to choose from
+features.attributeSelection.ASEvaluation = \
+ features.attributeSelection
+
+# Lists the Attribute Selection Search methods-Packages I want to choose from
+features.attributeSelection.ASSearch = \
+ features.attributeSelection
+
+# Lists the Associators-Packages I want to choose from
+features.associations.Associator=\
+ features.associations
+
+# Lists the Clusterers-Packages I want to choose from
+features.clusterers.Clusterer=\
+ features.clusterers
+
+# Lists the DensityBasedClusterers I want to choose from
+features.clusterers.DensityBasedClusterer=\
+ features.clusterers
+
+# Lists the Loaders-Packages I want to choose from
+features.core.converters.Loader=\
+ features.core.converters
+
+# Lists the Savers-Packages I want to choose from
+features.core.converters.Saver=\
+ features.core.converters
+
+# Lists the search algorithms for nearest neighbour search
+features.core.neighboursearch.NearestNeighbourSearch =\
+ features.core.neighboursearch
+
+# Lists the ball tree constructors
+features.core.neighboursearch.balltrees.BallTreeConstructor =\
+ features.core.neighboursearch.balltrees
+
+# Lists the ball splitters
+features.core.neighboursearch.balltrees.BallSplitter =\
+ features.core.neighboursearch.balltrees
+ 
+# Lists the kd tree splitters
+features.core.neighboursearch.kdtrees.KDTreeNodeSplitter =\
+ features.core.neighboursearch.kdtrees
+
+# Lists the distance functions for use nearest neighbour search
+features.core.DistanceFunction =\
+ features.core 
+
+# Lists the Search algorithm for Bayes net structure learning-Packages I want to choose from
+features.classifiers.bayes.net.search.SearchAlgorithm=\
+ features.classifiers.bayes.net.search.local, \
+ features.classifiers.bayes.net.search.ci, \
+ features.classifiers.bayes.net.search.global, \
+ features.classifiers.bayes.net.search.fixed
+
+features.classifiers.bayes.net.estimate.BayesNetEstimator =\
+ features.classifiers.bayes.net.estimate
+
+# Lists the DataGenerator Algorithms-Packages
+features.datagenerators.DataGenerator=\
+ features.datagenerators.classifiers.classification,\
+ features.datagenerators.classifiers.regression,\
+ features.datagenerators.clusterers
+
+# Lists the packages where to find ClusterDefinition
+features.datagenerators.ClusterDefinition=\
+ features.datagenerators,\
+ features.datagenerators.clusterers
+
+# List of stemmers
+features.core.stemmers.Stemmer=\
+ features.core.stemmers
+
+# Lists the Estimator-Packages I want to choose from
+features.estimators.Estimator= \
+ features.estimators
+
+# Lists of Kernels I want to choose from
+features.classifiers.functions.supportVector.Kernel=\
+ features.classifiers.functions.supportVector,\
+ features.classifiers.mi.supportVector
+
+# List of SVMreg learning algorithms
+features.classifiers.functions.supportVector.RegOptimizer=\
+ features.classifiers.functions.supportVector
+
+# List of tokenizers
+features.core.tokenizers.Tokenizer=\
+ features.core.tokenizers
+
+# List of extensions for the main GUI, package "features.gui" is not allowed
+features.gui.MainMenuExtension=
+
+# List of Explorer visualization plugins (classification panel)
+features.gui.visualize.plugins.VisualizePlugin=\
+ features.gui.visualize.plugins
+ 
+# List of Explorer tree visualization plugins (classification panel)
+features.gui.visualize.plugins.TreeVisualizePlugin=\
+ features.gui.visualize.plugins
+
+# List of Explorer graph visualization plugins (classification panel)
+features.gui.visualize.plugins.GraphVisualizePlugin=\
+ features.gui.visualize.plugins
+
+# List of Explorer error visualization plugins (classification panel)
+features.gui.visualize.plugins.ErrorVisualizePlugin=\
+ features.gui.visualize.plugins
+
+# List of writers for outputting graphics
+features.gui.visualize.JComponentWriter=\
+ features.gui.visualize
+
+# List of Experimenter result matrices
+features.experiment.ResultMatrix=\
+ features.experiment
+
+# List of Tester algorithms in the Experimenter
+features.experiment.Tester=\
+ features.experiment
+
+# List of file loaders
+features.core.converters.AbstractFileLoader=\
+ features.core.converters
+
+# List of file savers
+features.core.converters.AbstractFileSaver=\
+ features.core.converters
+
+# List of snowball stemmers.
+#
+# Note: the snowball jar needs to be in the CLASSPATH to make these stemmers
+#       available. See the following links for more information:
+#       http://features.wikispaces.com/Stemmers
+#       http://snowball.tartarus.org/
+#
+#org.tartarus.snowball.SnowballProgram=\
+# org.tartarus.snowball.ext

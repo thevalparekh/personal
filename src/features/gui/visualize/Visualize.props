@@ -1,0 +1,44 @@
+# Properties for visualization
+#
+# Version: $Revision: 1.9 $
+
+# Maximum precision for numeric values
+features.gui.visualize.precision=10
+
+# Colour for the axis in the 2D plot (can use R,G,B format)
+features.gui.visualize.Plot2D.axisColour=green
+
+# Colour for the background of the 2D plot (can use R,G,B format)
+features.gui.visualize.Plot2D.backgroundColour=white
+
+# Display the list of one dimensional attribute visualizations
+features.gui.visualize.VisualizePanel.displayAttributeBars=true
+
+# Colour for the background of the attribute bars in the
+# AttributePanel (can use R,G,B format)
+features.gui.visualize.AttributePanel.barColour=white
+
+# If you regularly visualize certain datasets with the same structure
+# you might want to define default x, y and colour dimensions (attributes)
+# to visualize on.
+# Just uncomment and set up the following
+# features.gui.visualize.VisualizePanel.<relation name>.XDimension=<attribute name>
+# features.gui.visualize.VisualizePanel.<relation name>.YDimension=<attribute name>
+# features.gui.visualize.VisualizePanel.<relation name>.ColourDimension=<attribute name>
+# NOTE: spaces in relation names can be handled by using 
+# escape characters (java 1.2), eg. my\ first\ relation\ name
+
+# Defaults for threshold curve plots
+features.gui.visualize.ThresholdVisualizePanel.ThresholdCurve.XDimension=False\ Positive\ Rate
+features.gui.visualize.ThresholdVisualizePanel.ThresholdCurve.YDimension=True\ Positive\ Rate
+features.gui.visualize.ThresholdVisualizePanel.ThresholdCurve.ColourDimension=Threshold
+
+#Defaults for cost curve plots
+features.gui.visualize.VisualizePanel.CostCurve.XDimension=Probability\ Cost\ Function
+features.gui.visualize.VisualizePanel.CostCurve.YDimension=Normalized\ Expected\ Cost
+features.gui.visualize.VisualizePanel.CostCurve.ColourDimension=Threshold
+
+# Defaults for margin curve plots
+features.gui.visualize.VisualizePanel.MarginCurve.XDimension=Margin
+features.gui.visualize.VisualizePanel.MarginCurve.YDimension=Cumulative
+features.gui.visualize.VisualizePanel.MarginCurve.ColourDimension=Margin
