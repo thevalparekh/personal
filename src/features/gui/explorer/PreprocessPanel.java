@@ -523,7 +523,7 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 						int selCount = 0;
 						
 						for(Entry<Attribute, Double> attrEntry : attributeMap.entrySet()) {
-							if ((sampleClassInformation - attrEntry.getValue().doubleValue()) < 0.5) {
+							if ((sampleClassInformation - attrEntry.getValue().doubleValue()) < 0.1) {
 								r1[selCount] = attrEntry.getKey().index();
 								selCount++;
 							}
