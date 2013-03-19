@@ -374,6 +374,7 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 			@SuppressWarnings("unchecked")
 			public void actionPerformed(ActionEvent e) {
 				try {
+					//attribute map stores mappingbetween attributes and information gain
 					Map<Attribute, Double> attributeMap = new HashMap<Attribute, Double>();
 					int classIndex = m_Instances.numAttributes() - 1;
 					List<String> classValues = new ArrayList<String>(); 
@@ -415,7 +416,8 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 			            try {
 			            	int currClassValue = entry.getValue().intValue();
 			            	double temp = currClassValue * 1.0 / totalInstances;
-			            	temp = temp * (Math.log10(temp) / Math.log10(2));
+			            	if( temp > 0)
+			            		temp = temp * (Math.log10(temp) / Math.log10(2));
 			            	sampleClassInformation +=temp;
 			            } catch (NumberFormatException ne) {
 			            	System.out.println("Caught number format exception at line 415" + ne);
