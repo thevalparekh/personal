@@ -97,7 +97,7 @@ import features.core.TechnicalInformation.Type;
  *  eg: features.classifiers.bayes.NaiveBayes</pre>
  * 
  * <pre> 
- * Options specific to learner features.classifiers.rules.ZeroR:
+ * Options specific to learner features.classifiers.rules.NaiveBayesWithoutImprovement:
  * </pre>
  * 
  * <pre> -D
@@ -118,7 +118,7 @@ public class BVDecompose
   protected boolean m_Debug;
 
   /** An instantiated base classifier used for getting and testing options. */
-  protected Classifier m_Classifier = new features.classifiers.rules.ZeroR();
+  protected Classifier m_Classifier = new features.classifiers.rules.NaiveBayesWithoutImprovement();
 
   /** The options to be passed to the base classifier. */
   protected String [] m_ClassifierOptions;
@@ -268,7 +268,7 @@ public class BVDecompose
    *  eg: features.classifiers.bayes.NaiveBayes</pre>
    * 
    * <pre> 
-   * Options specific to learner features.classifiers.rules.ZeroR:
+   * Options specific to learner features.classifiers.rules.NaiveBayesWithoutImprovement:
    * </pre>
    * 
    * <pre> -D

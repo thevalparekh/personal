@@ -85,7 +85,7 @@ import features.filters.unsupervised.attribute.Remove;
  * <pre> -B &lt;classifier specification&gt;
  *  Full class name of classifier to include, followed
  *  by scheme options. May be specified multiple times.
- *  (default: "features.classifiers.rules.ZeroR")</pre>
+ *  (default: "features.classifiers.rules.NaiveBayesWithoutImprovement")</pre>
  * 
  * <pre> -D
  *  If set, classifier is run in debug mode and

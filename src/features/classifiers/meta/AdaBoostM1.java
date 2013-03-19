@@ -138,7 +138,7 @@ public class AdaBoostM1
   /** The number of classes */
   protected int m_NumClasses;
   
-  /** a ZeroR model in case no model can be built from the data */
+  /** a NaiveBayesWithoutImprovement model in case no model can be built from the data */
   protected Classifier m_ZeroR;
     
   /**
@@ -443,12 +443,12 @@ public class AdaBoostM1
     data = new Instances(data);
     data.deleteWithMissingClass();
     
-    // only class? -> build ZeroR model
+    // only class? -> build NaiveBayesWithoutImprovement model
     if (data.numAttributes() == 1) {
       System.err.println(
 	  "Cannot build model (only class attribute present in data!), "
-	  + "using ZeroR model instead!");
-      m_ZeroR = new features.classifiers.rules.ZeroR();
+	  + "using NaiveBayesWithoutImprovement model instead!");
+      m_ZeroR = new features.classifiers.rules.NaiveBayesWithoutImprovement();
       m_ZeroR.buildClassifier(data);
       return;
     }
@@ -732,12 +732,12 @@ public class AdaBoostM1
    */
   public String toString() {
     
-    // only ZeroR model?
+    // only NaiveBayesWithoutImprovement model?
     if (m_ZeroR != null) {
       StringBuffer buf = new StringBuffer();
       buf.append(this.getClass().getName().replaceAll(".*\\.", "") + "\n");
       buf.append(this.getClass().getName().replaceAll(".*\\.", "").replaceAll(".", "=") + "\n\n");
-      buf.append("Warning: No model could be built, hence ZeroR model is used:\n\n");
+      buf.append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
       buf.append(m_ZeroR.toString());
       return buf.toString();
     }

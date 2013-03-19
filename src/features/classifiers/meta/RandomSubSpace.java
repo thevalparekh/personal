@@ -138,7 +138,7 @@ public class RandomSubSpace
   /** The size of each bag sample, as a percentage of the training size */
   protected double m_SubSpaceSize = 0.5;
 
-  /** a ZeroR model in case no model can be built from the data */
+  /** a NaiveBayesWithoutImprovement model in case no model can be built from the data */
   protected Classifier m_ZeroR;
     
   /**
@@ -404,12 +404,12 @@ public class RandomSubSpace
     data = new Instances(data);
     data.deleteWithMissingClass();
     
-    // only class? -> build ZeroR model
+    // only class? -> build NaiveBayesWithoutImprovement model
     if (data.numAttributes() == 1) {
       System.err.println(
 	  "Cannot build model (only class attribute present in data!), "
-	  + "using ZeroR model instead!");
-      m_ZeroR = new features.classifiers.rules.ZeroR();
+	  + "using NaiveBayesWithoutImprovement model instead!");
+      m_ZeroR = new features.classifiers.rules.NaiveBayesWithoutImprovement();
       m_ZeroR.buildClassifier(data);
       return;
     }
@@ -491,12 +491,12 @@ public class RandomSubSpace
    */
   public String toString() {
     
-    // only ZeroR model?
+    // only NaiveBayesWithoutImprovement model?
     if (m_ZeroR != null) {
       StringBuffer buf = new StringBuffer();
       buf.append(this.getClass().getName().replaceAll(".*\\.", "") + "\n");
       buf.append(this.getClass().getName().replaceAll(".*\\.", "").replaceAll(".", "=") + "\n\n");
-      buf.append("Warning: No model could be built, hence ZeroR model is used:\n\n");
+      buf.append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
       buf.append(m_ZeroR.toString());
       return buf.toString();
     }

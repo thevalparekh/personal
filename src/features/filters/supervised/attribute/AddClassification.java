@@ -59,7 +59,7 @@ import features.filters.SimpleBatchFilter;
  *  Full class name of classifier to use, followed
  *  by scheme options. eg:
  *   "features.classifiers.bayes.NaiveBayes -D"
- *  (default: features.classifiers.rules.ZeroR)</pre>
+ *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
  *
  * <pre> -serialized &lt;file&gt;
  *  Instead of training a classifier on the data, one can also provide
@@ -97,7 +97,7 @@ public class AddClassification
   private static final long serialVersionUID = -1931467132568441909L;
 
   /** The classifier template used to do the classification. */
-  protected Classifier m_Classifier = new features.classifiers.rules.ZeroR();
+  protected Classifier m_Classifier = new features.classifiers.rules.NaiveBayesWithoutImprovement();
 
   /** The file from which to load a serialized classifier. */
   protected File m_SerializedClassifierFile = new File(System.getProperty("user.dir"));
@@ -152,7 +152,7 @@ public class AddClassification
 	"\tFull class name of classifier to use, followed\n"
 	+ "\tby scheme options. eg:\n"
 	+ "\t\t\"features.classifiers.bayes.NaiveBayes -D\"\n"
-	+ "\t(default: features.classifiers.rules.ZeroR)",
+	+ "\t(default: features.classifiers.rules.NaiveBayesWithoutImprovement)",
 	"W", 1, "-W <classifier specification>"));
 
     result.addElement(new Option(
@@ -200,7 +200,7 @@ public class AddClassification
    *  Full class name of classifier to use, followed
    *  by scheme options. eg:
    *   "features.classifiers.bayes.NaiveBayes -D"
-   *  (default: features.classifiers.rules.ZeroR)</pre>
+   *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
    *
    * <pre> -serialized &lt;file&gt;
    *  Instead of training a classifier on the data, one can also provide
@@ -265,7 +265,7 @@ public class AddClassification
     if (!serializedModel) {
       tmpStr = Utils.getOption('W', options);
       if (tmpStr.length() == 0)
-	tmpStr = features.classifiers.rules.ZeroR.class.getName();
+	tmpStr = features.classifiers.rules.NaiveBayesWithoutImprovement.class.getName();
       tmpOptions = Utils.splitOptions(tmpStr);
       if (tmpOptions.length == 0)
 	throw new Exception("Invalid classifier specification string");

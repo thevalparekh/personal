@@ -30,7 +30,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.Evaluation;
-import features.classifiers.rules.ZeroR;
+import features.classifiers.rules.NaiveBayesWithoutImprovement;
 import features.core.Capabilities;
 import features.core.Instance;
 import features.core.Instances;
@@ -59,7 +59,7 @@ import features.filters.unsupervised.attribute.Remove;
  *  Place any classifier options LAST on the command line
  *  following a "--". eg.:
  *   -B features.classifiers.bayes.NaiveBayes ... -- -K
- *  (default: features.classifiers.rules.ZeroR)</pre>
+ *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
  * 
  * <pre> -T
  *  Use the training data to estimate accuracy.</pre>
@@ -69,7 +69,7 @@ import features.filters.unsupervised.attribute.Remove;
  *  estimate accuracy on.</pre>
  * 
  * <pre> 
- * Options specific to scheme features.classifiers.rules.ZeroR:
+ * Options specific to scheme features.classifiers.rules.NaiveBayesWithoutImprovement:
  * </pre>
  * 
  * <pre> -D
@@ -101,7 +101,7 @@ public class ClassifierSubsetEval
   private int m_numInstances;
 
   /** holds the classifier to use for error estimates */
-  private Classifier m_Classifier = new ZeroR();
+  private Classifier m_Classifier = new NaiveBayesWithoutImprovement();
 
   /** holds the evaluation object to use for evaluating the classifier */
   private Evaluation m_Evaluation;
@@ -140,7 +140,7 @@ public class ClassifierSubsetEval
 	+ "\tPlace any classifier options LAST on the command line\n"
 	+ "\tfollowing a \"--\". eg.:\n"
 	+ "\t\t-B features.classifiers.bayes.NaiveBayes ... -- -K\n"
-	+ "\t(default: features.classifiers.rules.ZeroR)", 
+	+ "\t(default: features.classifiers.rules.NaiveBayesWithoutImprovement)", 
 	"B", 1, "-B <classifier>"));
     
     newVector.addElement(new Option(
@@ -180,7 +180,7 @@ public class ClassifierSubsetEval
    *  Place any classifier options LAST on the command line
    *  following a "--". eg.:
    *   -B features.classifiers.bayes.NaiveBayes ... -- -K
-   *  (default: features.classifiers.rules.ZeroR)</pre>
+   *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
    * 
    * <pre> -T
    *  Use the training data to estimate accuracy.</pre>
@@ -190,7 +190,7 @@ public class ClassifierSubsetEval
    *  estimate accuracy on.</pre>
    * 
    * <pre> 
-   * Options specific to scheme features.classifiers.rules.ZeroR:
+   * Options specific to scheme features.classifiers.rules.NaiveBayesWithoutImprovement:
    * </pre>
    * 
    * <pre> -D
@@ -209,7 +209,7 @@ public class ClassifierSubsetEval
 
     optionString = Utils.getOption('B', options);
     if (optionString.length() == 0)
-      optionString = ZeroR.class.getName();
+      optionString = NaiveBayesWithoutImprovement.class.getName();
     setClassifier(Classifier.forName(optionString,
 				     Utils.partitionOptions(options)));
 
@@ -676,7 +676,7 @@ public class ClassifierSubsetEval
   protected void resetOptions () {
     m_trainingInstances = null;
     m_Evaluation = null;
-    m_Classifier = new ZeroR();
+    m_Classifier = new NaiveBayesWithoutImprovement();
     m_holdOutFile = new File("Click to set hold out or test instances");
     m_holdOutInstances = null;
     m_useTraining = false;

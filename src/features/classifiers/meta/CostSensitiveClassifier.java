@@ -85,10 +85,10 @@ import features.core.Capabilities.Capability;
  * 
  * <pre> -W
  *  Full name of base classifier.
- *  (default: features.classifiers.rules.ZeroR)</pre>
+ *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
  * 
  * <pre> 
- * Options specific to classifier features.classifiers.rules.ZeroR:
+ * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
  * </pre>
  * 
  * <pre> -D
@@ -147,14 +147,14 @@ public class CostSensitiveClassifier
    */
   protected String defaultClassifierString() {
     
-    return "features.classifiers.rules.ZeroR";
+    return "features.classifiers.rules.NaiveBayesWithoutImprovement";
   }
 
   /**
    * Default constructor.
    */
   public CostSensitiveClassifier() {
-    m_Classifier = new features.classifiers.rules.ZeroR();
+    m_Classifier = new features.classifiers.rules.NaiveBayesWithoutImprovement();
   }
 
   /**
@@ -227,10 +227,10 @@ public class CostSensitiveClassifier
    * 
    * <pre> -W
    *  Full name of base classifier.
-   *  (default: features.classifiers.rules.ZeroR)</pre>
+   *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
    * 
    * <pre> 
-   * Options specific to classifier features.classifiers.rules.ZeroR:
+   * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
    * </pre>
    * 
    * <pre> -D

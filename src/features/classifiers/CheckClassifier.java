@@ -60,7 +60,7 @@ import features.core.WeightedInstancesHandler;
  *         <li> Possible command line options to the classifier </li>
  *         <li> Whether the classifier can predict nominal, numeric, string, 
  *              date or relational class attributes. Warnings will be displayed if 
- *              performance is worse than ZeroR </li>
+ *              performance is worse than NaiveBayesWithoutImprovement </li>
  *         <li> Whether the classifier can be trained incrementally </li>
  *         <li> Whether the classifier can handle numeric predictor attributes </li>
  *         <li> Whether the classifier can handle nominal predictor attributes </li>
@@ -146,10 +146,10 @@ import features.core.WeightedInstancesHandler;
  * <pre> -W
  *  Full name of the classifier analysed.
  *  eg: features.classifiers.bayes.NaiveBayes
- *  (default features.classifiers.rules.ZeroR)</pre>
+ *  (default features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
  * 
  * <pre> 
- * Options specific to classifier features.classifiers.rules.ZeroR:
+ * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
  * </pre>
  * 
  * <pre> -D
@@ -173,13 +173,13 @@ public class CheckClassifier
    * - methods return array of booleans
    * - first index: success or not
    * - second index: acceptable or not (e.g., Exception is OK)
-   * - in case the performance is worse than that of ZeroR both indices are true
+   * - in case the performance is worse than that of NaiveBayesWithoutImprovement both indices are true
    *
    * FracPete (fracpete at waikato dot ac dot nz)
    */
   
   /*** The classifier to be examined */
-  protected Classifier m_Classifier = new features.classifiers.rules.ZeroR();
+  protected Classifier m_Classifier = new features.classifiers.rules.NaiveBayesWithoutImprovement();
   
   /**
    * Returns an enumeration describing the available options.
@@ -196,7 +196,7 @@ public class CheckClassifier
     result.addElement(new Option(
         "\tFull name of the classifier analysed.\n"
         +"\teg: features.classifiers.bayes.NaiveBayes\n"
-        + "\t(default features.classifiers.rules.ZeroR)",
+        + "\t(default features.classifiers.rules.NaiveBayesWithoutImprovement)",
         "W", 1, "-W"));
     
     if ((m_Classifier != null) 
@@ -258,10 +258,10 @@ public class CheckClassifier
    * <pre> -W
    *  Full name of the classifier analysed.
    *  eg: features.classifiers.bayes.NaiveBayes
-   *  (default features.classifiers.rules.ZeroR)</pre>
+   *  (default features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
    * 
    * <pre> 
-   * Options specific to classifier features.classifiers.rules.ZeroR:
+   * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
    * </pre>
    * 
    * <pre> -D
@@ -280,7 +280,7 @@ public class CheckClassifier
     
     tmpStr = Utils.getOption('W', options);
     if (tmpStr.length() == 0)
-      tmpStr = features.classifiers.rules.ZeroR.class.getName();
+      tmpStr = features.classifiers.rules.NaiveBayesWithoutImprovement.class.getName();
     setClassifier(
 	(Classifier) forName(
 	    "features.classifiers", 
@@ -632,7 +632,7 @@ public class CheckClassifier
   /**
    * Checks whether the scheme can handle data that contains only the class
    * attribute. If a scheme cannot build a proper model with that data, it
-   * should default back to a ZeroR model.
+   * should default back to a NaiveBayesWithoutImprovement model.
    *
    * @param nominalPredictor if true use nominal predictor attributes
    * @param numericPredictor if true use numeric predictor attributes
@@ -821,7 +821,7 @@ public class CheckClassifier
    * @param multiInstance whether multi-instance is needed
    * @param classType the class type (NUMERIC, NOMINAL, etc.)
    * @return index 0 is true if the test was passed, index 1 is true if the
-   *         scheme performs worse than ZeroR, but without error (index 0 is
+   *         scheme performs worse than NaiveBayesWithoutImprovement, but without error (index 0 is
    *         false)
    */
   protected boolean[] correctBuildInitialisation(
@@ -914,7 +914,7 @@ public class CheckClassifier
       classifier.buildClassifier(train1);
       built = true;
       if (!testWRTZeroR(classifier, evaluation1A, train1, test1)[0]) {
-        throw new Exception("Scheme performs worse than ZeroR");
+        throw new Exception("Scheme performs worse than NaiveBayesWithoutImprovement");
       }
       
       stage = 1;
@@ -922,7 +922,7 @@ public class CheckClassifier
       classifier.buildClassifier(train2);
       built = true;
       if (!testWRTZeroR(classifier, evaluation2, train2, test2)[0]) {
-        throw new Exception("Scheme performs worse than ZeroR");
+        throw new Exception("Scheme performs worse than NaiveBayesWithoutImprovement");
       }
       
       stage = 2;
@@ -930,7 +930,7 @@ public class CheckClassifier
       classifier.buildClassifier(train1);
       built = true;
       if (!testWRTZeroR(classifier, evaluation1B, train1, test1)[0]) {
-        throw new Exception("Scheme performs worse than ZeroR");
+        throw new Exception("Scheme performs worse than NaiveBayesWithoutImprovement");
       }
       
       stage = 3;
@@ -964,7 +964,7 @@ public class CheckClassifier
     catch (Exception ex) {
       String msg = ex.getMessage().toLowerCase();
       if (msg.indexOf("worse than zeror") >= 0) {
-        println("warning: performs worse than ZeroR");
+        println("warning: performs worse than NaiveBayesWithoutImprovement");
         result[0] = (stage < 1);
         result[1] = (stage < 1);
       } else {
@@ -1696,7 +1696,7 @@ public class CheckClassifier
       if (!testWRTZeroR(classifier, evaluation, train, test)[0]) {
         result[0] = true;
         result[1] = true;
-        throw new Exception("Scheme performs worse than ZeroR");
+        throw new Exception("Scheme performs worse than NaiveBayesWithoutImprovement");
       }
       
       println("yes");
@@ -1712,7 +1712,7 @@ public class CheckClassifier
       if (msg.indexOf("not in classpath") > -1)
 	m_ClasspathProblems = true;
       if (msg.indexOf("worse than zeror") >= 0) {
-        println("warning: performs worse than ZeroR");
+        println("warning: performs worse than NaiveBayesWithoutImprovement");
         result[0] = true;
         result[1] = true;
       } else {
@@ -1758,13 +1758,13 @@ public class CheckClassifier
   }
   
   /**
-   * Determine whether the scheme performs worse than ZeroR during testing
+   * Determine whether the scheme performs worse than NaiveBayesWithoutImprovement during testing
    *
    * @param classifier the pre-trained classifier
    * @param evaluation the classifier evaluation object
    * @param train the training data
    * @param test the test data
-   * @return index 0 is true if the scheme performs better than ZeroR
+   * @return index 0 is true if the scheme performs better than NaiveBayesWithoutImprovement
    * @throws Exception if there was a problem during the scheme's testing
    */
   protected boolean[] testWRTZeroR(Classifier classifier,
@@ -1777,15 +1777,15 @@ public class CheckClassifier
     evaluation.evaluateModel(classifier, test);
     try {
       
-      // Tested OK, compare with ZeroR
-      Classifier zeroR = new features.classifiers.rules.ZeroR();
+      // Tested OK, compare with NaiveBayesWithoutImprovement
+      Classifier zeroR = new features.classifiers.rules.NaiveBayesWithoutImprovement();
       zeroR.buildClassifier(train);
       Evaluation zeroREval = new Evaluation(train);
       zeroREval.evaluateModel(zeroR, test);
       result[0] = Utils.grOrEq(zeroREval.errorRate(), evaluation.errorRate());
     } 
     catch (Exception ex) {
-      throw new Error("Problem determining ZeroR performance: "
+      throw new Error("Problem determining NaiveBayesWithoutImprovement performance: "
           + ex.getMessage());
     }
     

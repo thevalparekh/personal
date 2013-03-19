@@ -15,7 +15,7 @@
  */
 
 /*
- *    ZeroR.java
+ *    NaiveBayesWithoutImprovement.java
  *    Copyright (C) 1999 University of Waikato, Hamilton, New Zealand
  *
  */
@@ -54,7 +54,7 @@ import features.core.Capabilities.Capability;
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)
  * @version $Revision: 5529 $
  */
-public class ZeroR 
+public class NaiveBayesWithoutImprovement 
   extends Classifier 
   implements WeightedInstancesHandler, Sourcable {
 
@@ -231,12 +231,12 @@ public class ZeroR
   public String toString() {
 
     if (m_Class ==  null) {
-      return "ZeroR: No model built yet.";
+      return "NaiveBayesWithoutImprovement: No model built yet.";
     }
     if (m_Counts == null) {
-      return "ZeroR predicts class value: " + m_ClassValue;
+      return "NaiveBayesWithoutImprovement predicts class value: " + m_ClassValue;
     } else {
-      return "ZeroR predicts class value: " + m_Class.value((int) m_ClassValue);
+      return "NaiveBayesWithoutImprovement predicts class value: " + m_Class.value((int) m_ClassValue);
     }
   }
   
@@ -255,6 +255,6 @@ public class ZeroR
    * @param argv the options
    */
   public static void main(String [] argv) {
-    runClassifier(new ZeroR(), argv);
+    runClassifier(new NaiveBayesWithoutImprovement(), argv);
   }
 }

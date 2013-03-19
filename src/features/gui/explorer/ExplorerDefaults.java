@@ -193,7 +193,7 @@ public class ExplorerDefaults
   /**
    * returns the default classifier (fully configured) for the classify panel.
    * 
-   * @return		the default classifier, ZeroR by default
+   * @return		the default classifier, NaiveBayesWithoutImprovement by default
    */
   public static Object getClassifier() {
     Object	result;
@@ -201,10 +201,10 @@ public class ExplorerDefaults
     result = getObject(
     	"Classifier",
     	features.classifiers.bayes.NaiveBayes.class.getName(),
-		//features.classifiers.rules.ZeroR.class.getName(), 
+		//features.classifiers.rules.NaiveBayesWithoutImprovement.class.getName(), 
 		features.classifiers.Classifier.class);
     if (result == null)
-      result = new features.classifiers.bayes.NaiveBayes();//new features.classifiers.rules.ZeroR();
+      result = new features.classifiers.bayes.NaiveBayes();//new features.classifiers.rules.NaiveBayesWithoutImprovement();
     
     return result;
   }

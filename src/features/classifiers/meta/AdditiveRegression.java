@@ -28,7 +28,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.IteratedSingleClassifierEnhancer;
-import features.classifiers.rules.ZeroR;
+import features.classifiers.rules.NaiveBayesWithoutImprovement;
 import features.core.AdditionalMeasureProducer;
 import features.core.Capabilities;
 import features.core.Instance;
@@ -119,9 +119,9 @@ public class AdditiveRegression
   protected int m_NumIterationsPerformed;
 
   /** The model for the mean */
-  protected ZeroR m_zeroR;
+  protected NaiveBayesWithoutImprovement m_zeroR;
 
-  /** whether we have suitable data or nor (if not, ZeroR model is used) */
+  /** whether we have suitable data or nor (if not, NaiveBayesWithoutImprovement model is used) */
   protected boolean m_SuitableData = true;
   
   /**
@@ -345,14 +345,14 @@ public class AdditiveRegression
     double sum = 0;
     double temp_sum = 0;
     // Add the model for the mean first
-    m_zeroR = new ZeroR();
+    m_zeroR = new NaiveBayesWithoutImprovement();
     m_zeroR.buildClassifier(newData);
     
-    // only class? -> use only ZeroR model
+    // only class? -> use only NaiveBayesWithoutImprovement model
     if (newData.numAttributes() == 1) {
       System.err.println(
 	  "Cannot build model (only class attribute present in data!), "
-	  + "using ZeroR model instead!");
+	  + "using NaiveBayesWithoutImprovement model instead!");
       m_SuitableData = false;
       return;
     }
@@ -485,12 +485,12 @@ public class AdditiveRegression
   public String toString() {
     StringBuffer text = new StringBuffer();
 
-    // only ZeroR model?
+    // only NaiveBayesWithoutImprovement model?
     if (!m_SuitableData) {
       StringBuffer buf = new StringBuffer();
       buf.append(this.getClass().getName().replaceAll(".*\\.", "") + "\n");
       buf.append(this.getClass().getName().replaceAll(".*\\.", "").replaceAll(".", "=") + "\n\n");
-      buf.append("Warning: No model could be built, hence ZeroR model is used:\n\n");
+      buf.append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
       buf.append(m_zeroR.toString());
       return buf.toString();
     }
@@ -501,7 +501,7 @@ public class AdditiveRegression
 
     text.append("Additive Regression\n\n");
 
-    text.append("ZeroR model\n\n" + m_zeroR + "\n\n");
+    text.append("NaiveBayesWithoutImprovement model\n\n" + m_zeroR + "\n\n");
 
     text.append("Base classifier " 
 		+ getClassifier().getClass().getName()

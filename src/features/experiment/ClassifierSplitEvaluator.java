@@ -35,7 +35,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.Evaluation;
-import features.classifiers.rules.ZeroR;
+import features.classifiers.rules.NaiveBayesWithoutImprovement;
 import features.core.AdditionalMeasureProducer;
 import features.core.Attribute;
 import features.core.Instance;
@@ -77,7 +77,7 @@ import features.core.Utils;
  *  for each fold.</pre>
  * 
  * <pre> 
- * Options specific to classifier features.classifiers.rules.ZeroR:
+ * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
  * </pre>
  * 
  * <pre> -D
@@ -99,7 +99,7 @@ public class ClassifierSplitEvaluator
   static final long serialVersionUID = -8511241602760467265L;
   
   /** The template classifier */
-  protected Classifier m_Template = new ZeroR();
+  protected Classifier m_Template = new NaiveBayesWithoutImprovement();
 
   /** The classifier used for evaluation */
   protected Classifier m_Classifier;
@@ -238,7 +238,7 @@ public class ClassifierSplitEvaluator
    *  for each fold.</pre>
    * 
    * <pre> 
-   * Options specific to classifier features.classifiers.rules.ZeroR:
+   * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
    * </pre>
    * 
    * <pre> -D

@@ -26,7 +26,7 @@ import java.util.Enumeration;
 import java.util.Vector;
 
 import features.classifiers.Classifier;
-import features.classifiers.rules.ZeroR;
+import features.classifiers.rules.NaiveBayesWithoutImprovement;
 import features.clusterers.AbstractClusterer;
 import features.clusterers.ClusterEvaluation;
 import features.clusterers.Clusterer;
@@ -393,8 +393,8 @@ public class ClassificationViaClustering
     m_ClusteringHeader = new Instances(clusterData, 0);
 
     if (m_ClusteringHeader.numAttributes() == 0) {
-      System.err.println("Data contains only class attribute, defaulting to ZeroR model.");
-      m_ZeroR = new ZeroR();
+      System.err.println("Data contains only class attribute, defaulting to NaiveBayesWithoutImprovement model.");
+      m_ZeroR = new NaiveBayesWithoutImprovement();
       m_ZeroR.buildClassifier(data);
     }
     else {

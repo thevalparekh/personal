@@ -30,7 +30,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.RandomizableSingleClassifierEnhancer;
-import features.classifiers.rules.ZeroR;
+import features.classifiers.rules.NaiveBayesWithoutImprovement;
 import features.core.Attribute;
 import features.core.Capabilities;
 import features.core.FastVector;
@@ -120,8 +120,8 @@ public class MultiClassClassifier
   /** The filters used to transform the class. */
   private Filter[] m_ClassFilters;
 
-  /** ZeroR classifier for when all base classifier return zero probability. */
-  private ZeroR m_ZeroR;
+  /** NaiveBayesWithoutImprovement classifier for when all base classifier return zero probability. */
+  private NaiveBayesWithoutImprovement m_ZeroR;
 
   /** Internal copy of the class attribute for output purposes */
   private Attribute m_ClassAttribute;
@@ -436,7 +436,7 @@ public class MultiClassClassifier
     if (m_Classifier == null) {
       throw new Exception("No base classifier has been set!");
     }
-    m_ZeroR = new ZeroR();
+    m_ZeroR = new NaiveBayesWithoutImprovement();
     m_ZeroR.buildClassifier(insts);
 
     m_TwoClassDataset = null;

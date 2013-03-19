@@ -90,7 +90,7 @@ import features.core.Utils;
  *  for each fold.</pre>
  * 
  * <pre> 
- * Options specific to classifier features.classifiers.rules.ZeroR:
+ * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
  * </pre>
  * 
  * <pre> -D
@@ -702,7 +702,7 @@ public class CrossValidationResultProducer
    *  for each fold.</pre>
    * 
    * <pre> 
-   * Options specific to classifier features.classifiers.rules.ZeroR:
+   * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
    * </pre>
    * 
    * <pre> -D

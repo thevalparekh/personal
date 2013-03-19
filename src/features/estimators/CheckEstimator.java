@@ -66,7 +66,7 @@ import features.core.WeightedInstancesHandler;
  *         <li> Possible command line options to the estimator </li>
  *         <li> Whether the estimator can predict nominal, numeric, string, 
  *              date or relational class attributes. Warnings will be displayed if 
- *              performance is worse than ZeroR </li>
+ *              performance is worse than NaiveBayesWithoutImprovement </li>
  *         <li> Whether the estimator can be trained incrementally </li>
  *         <li> Whether the estimator can build estimates for numeric attributes </li>
  *         <li> Whether the estimator can handle nominal attributes </li>
@@ -148,7 +148,7 @@ public class CheckEstimator implements OptionHandler, RevisionHandler {
    * - methods return array of booleans
    * - first index: success or not
    * - second index: acceptable or not (e.g., Exception is OK)
-   * - in case the performance is worse than that of ZeroR both indices are true
+   * - in case the performance is worse than that of NaiveBayesWithoutImprovement both indices are true
    *
    * FracPete (fracpete at waikato dot ac dot nz)
    */
@@ -1037,7 +1037,7 @@ public class CheckEstimator implements OptionHandler, RevisionHandler {
    * @param attrTypes attribute types that can be estimated
    * @param classType the class type (NUMERIC, NOMINAL, etc.)
    * @return index 0 is true if the test was passed, index 1 is true if the
-   *         scheme performs worse than ZeroR, but without error (index 0 is
+   *         scheme performs worse than NaiveBayesWithoutImprovement, but without error (index 0 is
    *         false)
    */
   protected boolean[] correctBuildInitialisation(AttrTypes attrTypes,
@@ -1127,7 +1127,7 @@ public class CheckEstimator implements OptionHandler, RevisionHandler {
     catch (Exception ex) {
       String msg = ex.getMessage().toLowerCase();
       if (msg.indexOf("worse than zeror") >= 0) {
-        println("warning: performs worse than ZeroR");
+        println("warning: performs worse than NaiveBayesWithoutImprovement");
         result[0] = true;
         result[1] = true;
       } else {

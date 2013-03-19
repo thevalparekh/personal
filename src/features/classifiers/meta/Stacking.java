@@ -29,7 +29,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.RandomizableMultipleClassifiersCombiner;
-import features.classifiers.rules.ZeroR;
+import features.classifiers.rules.NaiveBayesWithoutImprovement;
 import features.core.Attribute;
 import features.core.Capabilities;
 import features.core.FastVector;
@@ -87,7 +87,7 @@ import features.core.TechnicalInformation.Type;
  * <pre> -B &lt;classifier specification&gt;
  *  Full class name of classifier to include, followed
  *  by scheme options. May be specified multiple times.
- *  (default: "features.classifiers.rules.ZeroR")</pre>
+ *  (default: "features.classifiers.rules.NaiveBayesWithoutImprovement")</pre>
  *
  * <pre> -D
  *  If set, classifier is run in debug mode and
@@ -106,7 +106,7 @@ public class Stacking
   static final long serialVersionUID = 5134738557155845452L;
 
   /** The meta classifier */
-  protected Classifier m_MetaClassifier = new ZeroR();
+  protected Classifier m_MetaClassifier = new NaiveBayesWithoutImprovement();
 
   /** Format for meta data */
   protected Instances m_MetaFormat = null;
@@ -205,7 +205,7 @@ public class Stacking
    * <pre> -B &lt;classifier specification&gt;
    *  Full class name of classifier to include, followed
    *  by scheme options. May be specified multiple times.
-   *  (default: "features.classifiers.rules.ZeroR")</pre>
+   *  (default: "features.classifiers.rules.NaiveBayesWithoutImprovement")</pre>
    *
    * <pre> -D
    *  If set, classifier is run in debug mode and
@@ -240,7 +240,7 @@ public class Stacking
     String [] classifierSpec = Utils.splitOptions(classifierString);
     String classifierName;
     if (classifierSpec.length == 0) {
-      classifierName = "features.classifiers.rules.ZeroR";
+      classifierName = "features.classifiers.rules.NaiveBayesWithoutImprovement";
     } else {
       classifierName = classifierSpec[0];
       classifierSpec[0] = "";

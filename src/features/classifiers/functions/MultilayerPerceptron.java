@@ -893,11 +893,11 @@ public class MultilayerPerceptron
     }
   }
   
-  /** a ZeroR model in case no model can be built from the data 
+  /** a NaiveBayesWithoutImprovement model in case no model can be built from the data 
    * or the network predicts all zeros for the classes */
   private Classifier m_ZeroR;
 
-  /** Whether to use the default ZeroR model */
+  /** Whether to use the default NaiveBayesWithoutImprovement model */
   private boolean m_useDefaultModel = false;
     
   /** The training instances. */
@@ -1764,13 +1764,13 @@ public class MultilayerPerceptron
     i = new Instances(i);
     i.deleteWithMissingClass();
 
-    m_ZeroR = new features.classifiers.rules.ZeroR();
+    m_ZeroR = new features.classifiers.rules.NaiveBayesWithoutImprovement();
     m_ZeroR.buildClassifier(i);
-    // only class? -> use ZeroR model
+    // only class? -> use NaiveBayesWithoutImprovement model
     if (i.numAttributes() == 1) {
       System.err.println(
 	  "Cannot build model (only class attribute present in data!), "
-	  + "using ZeroR model instead!");
+	  + "using NaiveBayesWithoutImprovement model instead!");
       m_useDefaultModel = true;
       return;
     }
@@ -2431,12 +2431,12 @@ public class MultilayerPerceptron
    * @return string describing the model.
    */
   public String toString() {
-    // only ZeroR model?
+    // only NaiveBayesWithoutImprovement model?
     if (m_useDefaultModel) {
       StringBuffer buf = new StringBuffer();
       buf.append(this.getClass().getName().replaceAll(".*\\.", "") + "\n");
       buf.append(this.getClass().getName().replaceAll(".*\\.", "").replaceAll(".", "=") + "\n\n");
-      buf.append("Warning: No model could be built, hence ZeroR model is used:\n\n");
+      buf.append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
       buf.append(m_ZeroR.toString());
       return buf.toString();
     }

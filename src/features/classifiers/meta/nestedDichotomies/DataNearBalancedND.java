@@ -324,7 +324,7 @@ public class DataNearBalancedND
     if (data.numInstances() > 0) {
       m_FilteredClassifier.setClassifier(Classifier.makeCopies(classifier, 1)[0]);
     } else {
-      m_FilteredClassifier.setClassifier(new features.classifiers.rules.ZeroR());
+      m_FilteredClassifier.setClassifier(new features.classifiers.rules.NaiveBayesWithoutImprovement());
     }
     m_FilteredClassifier.setFilter(filter);
 

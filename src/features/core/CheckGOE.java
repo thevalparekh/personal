@@ -54,8 +54,8 @@ import java.util.Vector;
  * 
  * <pre> -W
  *  Full name of the class analysed.
- *  eg: features.classifiers.rules.ZeroR
- *  (default features.classifiers.rules.ZeroR)</pre>
+ *  eg: features.classifiers.rules.NaiveBayesWithoutImprovement
+ *  (default features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
  * 
  <!-- options-end -->
  *
@@ -66,7 +66,7 @@ public class CheckGOE
   extends Check {
 
   /** the object to test */
-  protected Object m_Object = new features.classifiers.rules.ZeroR();
+  protected Object m_Object = new features.classifiers.rules.NaiveBayesWithoutImprovement();
   
   /** whether the tests were successful */
   protected boolean m_Success;
@@ -109,8 +109,8 @@ public class CheckGOE
     
     result.addElement(new Option(
         "\tFull name of the class analysed.\n"
-        +"\teg: features.classifiers.rules.ZeroR\n"
-        + "\t(default features.classifiers.rules.ZeroR)",
+        +"\teg: features.classifiers.rules.NaiveBayesWithoutImprovement\n"
+        + "\t(default features.classifiers.rules.NaiveBayesWithoutImprovement)",
         "W", 1, "-W"));
     
     return result.elements();
@@ -134,8 +134,8 @@ public class CheckGOE
    * 
    * <pre> -W
    *  Full name of the class analysed.
-   *  eg: features.classifiers.rules.ZeroR
-   *  (default features.classifiers.rules.ZeroR)</pre>
+   *  eg: features.classifiers.rules.NaiveBayesWithoutImprovement
+   *  (default features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
    * 
    <!-- options-end -->
    *
@@ -149,7 +149,7 @@ public class CheckGOE
     
     tmpStr = Utils.getOption('W', options);
     if (tmpStr.length() == 0)
-      tmpStr = features.classifiers.rules.ZeroR.class.getName();
+      tmpStr = features.classifiers.rules.NaiveBayesWithoutImprovement.class.getName();
     setObject(Utils.forName(Object.class, tmpStr, null));
     
     tmpStr = Utils.getOption("ignored", options);
