@@ -32,9 +32,6 @@ InitGenericObjectEditorFilter=True
 #   standalone - the tab does not depend on the PreprocessPanel to load the data first
 #
 Tabs=features.gui.explorer.ClassifierPanel,\
-     #features.gui.explorer.ClustererPanel,\
-     #features.gui.explorer.AssociationsPanel,\
-     #features.gui.explorer.AttributeSelectionPanel,\
      features.gui.explorer.VisualizePanel
 
 # the initial directory for opening datasets.
@@ -57,7 +54,7 @@ Filter=
 
 # the default classifier in the classify tab, including options
 # (default is ZeroR)
-Classifier=features.classifiers.rules.ZeroR
+#Classifier=features.classifiers.rules.ZeroR
 
 # the default test mode in the classify tab 
 # (according to "testMode" variable in startClassifier method)

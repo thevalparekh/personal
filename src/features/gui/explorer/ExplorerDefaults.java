@@ -149,7 +149,7 @@ public class ExplorerDefaults
     String	tabs;
     
     // read and split on comma
-    tabs   = get("Tabs", "features.gui.explorer.ClassifierPanel,features.gui.explorer.ClustererPanel,features.gui.explorer.AssociationsPanel,features.gui.explorer.AttributeSelectionPanel,features.gui.explorer.VisualizePanel");
+    tabs   = get("Tabs", "features.gui.explorer.ClassifierPanel,features.gui.explorer.VisualizePanel");//features.gui.explorer.ClustererPanel,features.gui.explorer.AssociationsPanel,features.gui.explorer.AttributeSelectionPanel,
     result = tabs.split(",");
     
     return result;
@@ -199,11 +199,12 @@ public class ExplorerDefaults
     Object	result;
     
     result = getObject(
-    	"Classifier", 
-		features.classifiers.rules.ZeroR.class.getName(), 
+    	"Classifier",
+    	features.classifiers.bayes.NaiveBayes.class.getName(),
+		//features.classifiers.rules.ZeroR.class.getName(), 
 		features.classifiers.Classifier.class);
     if (result == null)
-      result = new features.classifiers.rules.ZeroR();
+      result = new features.classifiers.bayes.NaiveBayes();//new features.classifiers.rules.ZeroR();
     
     return result;
   }

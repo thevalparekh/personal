@@ -280,7 +280,7 @@ public class WrapperSubsetEval
     optionString = Utils.getOption('B', options);
 
     if (optionString.length() == 0)
-      optionString = ZeroR.class.getName();
+      optionString = "NaiveBayes";//ZeroR.class.getName();
     setClassifier(Classifier.forName(optionString, 
 				     Utils.partitionOptions(options)));
     optionString = Utils.getOption('F', options);

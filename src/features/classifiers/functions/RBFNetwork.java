@@ -176,12 +176,12 @@ public class RBFNetwork extends Classifier implements OptionHandler {
 
     SimpleKMeans sk = new SimpleKMeans();
     sk.setNumClusters(m_numClusters);
-    sk.setSeed(m_clusteringSeed);
+    //sk.setSeed(m_clusteringSeed);
     MakeDensityBasedClusterer dc = new MakeDensityBasedClusterer();
-    dc.setClusterer(sk);
+    //dc.setClusterer(sk);
     dc.setMinStdDev(m_minStdDev);
     m_basisFilter = new ClusterMembership();
-    m_basisFilter.setDensityBasedClusterer(dc);
+    //m_basisFilter.setDensityBasedClusterer(dc);
     m_basisFilter.setInputFormat(instances);
     Instances transformed = Filter.useFilter(instances, m_basisFilter);
 
