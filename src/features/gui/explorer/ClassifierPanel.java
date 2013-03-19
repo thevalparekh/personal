@@ -825,7 +825,7 @@ public class ClassifierPanel extends JPanel implements
     gbC.gridy = 0;
     gbC.gridx = 0;
     gbL.setConstraints(p2, gbC);
-    mondo.add(p2);
+    //mondo.add(p2); //dhaval sonal
     gbC = new GridBagConstraints();
     gbC.anchor = GridBagConstraints.NORTH;
     gbC.fill = GridBagConstraints.HORIZONTAL;
@@ -1419,23 +1419,23 @@ public class ClassifierPanel extends JPanel implements
             }
 
             if (outputModel) {
-              outBuff
-                  .append(Messages
-                      .getInstance()
-                      .getString(
-                          "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentySixth"));
-              outBuff.append(classifier.toString() + "\n");
-              outBuff
-                  .append(Messages
-                      .getInstance()
-                      .getString(
-                          "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentyEighth")
-                      + Utils.doubleToString(trainTimeElapsed / 1000.0, 2)
-                      + " "
-                      + Messages
-                          .getInstance()
-                          .getString(
-                              "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentyNineth"));
+//              outBuff
+//                  .append(Messages
+//                      .getInstance()
+//                      .getString(
+//                          "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentySixth"));
+//              outBuff.append(classifier.toString() + "\n");
+//              outBuff
+//                  .append(Messages
+//                      .getInstance()
+//                      .getString(
+//                          "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentyEighth")
+//                      + Utils.doubleToString(trainTimeElapsed / 1000.0, 2)
+//                      + " "
+//                      + Messages
+//                          .getInstance()
+//                          .getString(
+//                              "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentyNineth"));
               m_History.updateResult(name);
               if (classifier instanceof Drawable) {
                 grph = null;
@@ -1726,11 +1726,12 @@ public class ClassifierPanel extends JPanel implements
               outBuff.append(eval.toSummaryString(outputEntropy) + "\n");
             }
 
+            //dhaval sonal
             if (inst.attribute(classIndex).isNominal()) {
 
-              if (outputPerClass) {
-                outBuff.append(eval.toClassDetailsString() + "\n");
-              }
+//              if (outputPerClass) {
+//                outBuff.append(eval.toClassDetailsString() + "\n");
+//              }
 
               if (outputConfusion) {
                 outBuff.append(eval.toMatrixString() + "\n");

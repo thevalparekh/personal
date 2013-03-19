@@ -113,7 +113,7 @@ public class PropertyPanel
   protected void createDefaultPanel() {
 
     setBorder(BorderFactory.createEtchedBorder());
-    setToolTipText(Messages.getInstance().getString("PropertyPanel_CreateDefaultPanel_SetToolTipText_Text"));
+    //setToolTipText(Messages.getInstance().getString("PropertyPanel_CreateDefaultPanel_SetToolTipText_Text")); //dhaval sonal
     setOpaque(true);
     final Component comp = this;
     addMouseListener(new MouseAdapter() {

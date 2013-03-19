@@ -560,7 +560,7 @@ public class GenericObjectEditor implements PropertyEditor, CustomPanelSupplier 
 	    }
 	  }
 	});
-	panel.add(m_FilterButton);
+	//panel.add(m_FilterButton);// dhaval sonal
 	
 	// remove
 	m_RemoveFilterButton.setMnemonic('R');
@@ -573,7 +573,7 @@ public class GenericObjectEditor implements PropertyEditor, CustomPanelSupplier 
 	    }
 	  }
 	});
-	panel.add(m_RemoveFilterButton);
+	//panel.add(m_RemoveFilterButton); // dhaval sonal 
       }
 
       // close

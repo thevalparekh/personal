@@ -2229,25 +2229,26 @@ public class Evaluation
 	  text.append(Utils.doubleToString(incorrect(), 12, 4) + "     " +
 	      Utils.doubleToString(pctIncorrect(),
 		  12, 4) + " %\n");
-	  text.append("Kappa statistic                    ");
-	  text.append(Utils.doubleToString(kappa(), 12, 4) + "\n");
-
-	  if (m_CostMatrix != null) {
-	    text.append("Total Cost                         ");
-	    text.append(Utils.doubleToString(totalCost(), 12, 4) + "\n");
-	    text.append("Average Cost                       ");
-	    text.append(Utils.doubleToString(avgCost(), 12, 4) + "\n");
-	  }
-	  if (printComplexityStatistics) {
-	    text.append("K&B Relative Info Score            ");
-	    text.append(Utils.doubleToString(KBRelativeInformation(), 12, 4) 
-		+ " %\n");
-	    text.append("K&B Information Score              ");
-	    text.append(Utils.doubleToString(KBInformation(), 12, 4) 
-		+ " bits");
-	    text.append(Utils.doubleToString(KBMeanInformation(), 12, 4) 
-		+ " bits/instance\n");
-	  }
+	  //dhaval sonal
+//	  text.append("Kappa statistic                    ");
+//	  text.append(Utils.doubleToString(kappa(), 12, 4) + "\n");
+//
+//	  if (m_CostMatrix != null) {
+//	    text.append("Total Cost                         ");
+//	    text.append(Utils.doubleToString(totalCost(), 12, 4) + "\n");
+//	    text.append("Average Cost                       ");
+//	    text.append(Utils.doubleToString(avgCost(), 12, 4) + "\n");
+//	  }
+//	  if (printComplexityStatistics) {
+//	    text.append("K&B Relative Info Score            ");
+//	    text.append(Utils.doubleToString(KBRelativeInformation(), 12, 4) 
+//		+ " %\n");
+//	    text.append("K&B Information Score              ");
+//	    text.append(Utils.doubleToString(KBInformation(), 12, 4) 
+//		+ " bits");
+//	    text.append(Utils.doubleToString(KBMeanInformation(), 12, 4) 
+//		+ " bits/instance\n");
+	  //}
 	} else {        
 	  text.append("Correlation coefficient            ");
 	  text.append(Utils.doubleToString(correlationCoefficient(), 12 , 4) +
@@ -2270,21 +2271,21 @@ public class Evaluation
 	      + " bits/instance\n");
 	}
 
-	text.append("Mean absolute error                ");
-	text.append(Utils.doubleToString(meanAbsoluteError(), 12, 4) 
-	    + "\n");
-	text.append("Root mean squared error            ");
-	text.append(Utils.
-	    doubleToString(rootMeanSquaredError(), 12, 4) 
-	    + "\n");
-	if (!m_NoPriors) {
-	  text.append("Relative absolute error            ");
-	  text.append(Utils.doubleToString(relativeAbsoluteError(), 
-	      12, 4) + " %\n");
-	  text.append("Root relative squared error        ");
-	  text.append(Utils.doubleToString(rootRelativeSquaredError(), 
-	      12, 4) + " %\n");
-	}
+//	text.append("Mean absolute error                ");
+//	text.append(Utils.doubleToString(meanAbsoluteError(), 12, 4) 
+//	    + "\n");
+//	text.append("Root mean squared error            ");
+//	text.append(Utils.
+//	    doubleToString(rootMeanSquaredError(), 12, 4) 
+//	    + "\n");
+//	if (!m_NoPriors) {
+//	  text.append("Relative absolute error            ");
+//	  text.append(Utils.doubleToString(relativeAbsoluteError(), 
+//	      12, 4) + " %\n");
+//	  text.append("Root relative squared error        ");
+//	  text.append(Utils.doubleToString(rootRelativeSquaredError(), 
+//	      12, 4) + " %\n");
+//	}
       }
       if (Utils.gr(unclassified(), 0)) {
 	text.append("UnClassified Instances             ");
