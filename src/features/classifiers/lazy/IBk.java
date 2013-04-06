@@ -28,7 +28,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.UpdateableClassifier;
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.AdditionalMeasureProducer;
 import features.core.Attribute;
 import features.core.Capabilities;
@@ -184,8 +184,8 @@ public class IBk
   /** The number of attributes the contribute to a prediction. */
   protected double m_NumAttributesUsed;
   
-  /** Default NaiveBayesWithoutImprovement model to use when there are no training instances */
-  protected NaiveBayesWithoutImprovement m_defaultModel;
+  /** Default Trial1 model to use when there are no training instances */
+  protected Trial1 m_defaultModel;
   
   /**
    * IBk classifier. Simple instance-based learner that uses the class
@@ -516,7 +516,7 @@ public class IBk
     // Invalidate any currently cross-validation selected k
     m_kNNValid = false;
     
-    m_defaultModel = new NaiveBayesWithoutImprovement();
+    m_defaultModel = new Trial1();
     m_defaultModel.buildClassifier(instances);
   }
 
@@ -800,7 +800,7 @@ public class IBk
     }
     
     if (m_Train.numInstances() == 0) {
-      return "Warning: no training instances - NaiveBayesWithoutImprovement model used.";
+      return "Warning: no training instances - Trial1 model used.";
     }    
 
     if (!m_kNNValid && m_CrossValidate) {

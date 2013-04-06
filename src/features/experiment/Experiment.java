@@ -135,7 +135,7 @@ import features.experiment.xml.XMLExperiment;
  *  for each fold.</pre>
  * 
  * <pre> 
- * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
+ * Options specific to classifier features.classifiers.rules.Trial1:
  * </pre>
  * 
  * <pre> -D
@@ -869,7 +869,7 @@ public class Experiment
    *  for each fold.</pre>
    * 
    * <pre> 
-   * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
+   * Options specific to classifier features.classifiers.rules.Trial1:
    * </pre>
    * 
    * <pre> -D

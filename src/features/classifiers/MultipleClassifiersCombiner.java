@@ -46,7 +46,7 @@ public abstract class MultipleClassifiersCombiner extends Classifier {
   
   /** Array for storing the generated base classifiers. */
   protected Classifier[] m_Classifiers = {
-    new features.classifiers.rules.NaiveBayesWithoutImprovement()
+    new features.classifiers.rules.Trial1()
   };
 
   /**
@@ -61,7 +61,7 @@ public abstract class MultipleClassifiersCombiner extends Classifier {
     newVector.addElement(new Option(
 	      "\tFull class name of classifier to include, followed\n"
 	      + "\tby scheme options. May be specified multiple times.\n"
-	      + "\t(default: \"features.classifiers.rules.NaiveBayesWithoutImprovement\")",
+	      + "\t(default: \"features.classifiers.rules.Trial1\")",
 	      "B", 1, "-B <classifier specification>"));
 
     Enumeration enu = super.listOptions();
@@ -101,7 +101,7 @@ public abstract class MultipleClassifiersCombiner extends Classifier {
 						classifierSpec));
     }
     if (classifiers.size() == 0) {
-      classifiers.addElement(new features.classifiers.rules.NaiveBayesWithoutImprovement());
+      classifiers.addElement(new features.classifiers.rules.Trial1());
     }
     Classifier [] classifiersArray = new Classifier [classifiers.size()];
     for (int i = 0; i < classifiersArray.length; i++) {

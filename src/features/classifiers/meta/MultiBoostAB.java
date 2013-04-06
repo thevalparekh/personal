@@ -371,12 +371,12 @@ public class MultiBoostAB
    */
   public String toString() {
     
-    // only NaiveBayesWithoutImprovement model?
+    // only Trial1 model?
     if (m_ZeroR != null) {
       StringBuffer buf = new StringBuffer();
       buf.append(this.getClass().getName().replaceAll(".*\\.", "") + "\n");
       buf.append(this.getClass().getName().replaceAll(".*\\.", "").replaceAll(".", "=") + "\n\n");
-      buf.append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
+      buf.append("Warning: No model could be built, hence Trial1 model is used:\n\n");
       buf.append(m_ZeroR.toString());
       return buf.toString();
     }

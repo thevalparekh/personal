@@ -548,7 +548,7 @@ public class UserClassifier
     
     m_classifiers = new GenericObjectEditor(true);
     m_classifiers.setClassType(Classifier.class);
-    m_classifiers.setValue(new features.classifiers.rules.NaiveBayesWithoutImprovement());
+    m_classifiers.setValue(new features.classifiers.rules.Trial1());
     
     ((GenericObjectEditor.GOEPanel)m_classifiers.getCustomEditor())
       .addOkListener(new ActionListener() {
@@ -563,7 +563,7 @@ public class UserClassifier
 	      m_focus.setClassifier((Classifier)m_classifiers.getValue());
               /*	      m_classifiers = new GenericObjectEditor();
 	      m_classifiers.setClassType(Classifier.class);
-	      m_classifiers.setValue(new features.classifiers.rules.NaiveBayesWithoutImprovement());
+	      m_classifiers.setValue(new features.classifiers.rules.Trial1());
 	      ((GenericObjectEditor.GOEPanel)m_classifiers.getCustomEditor())
               .addOkListener(this); */
 	      m_tView = new TreeVisualizer(UserClassifier.this, graph(), 

@@ -28,7 +28,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.IteratedSingleClassifierEnhancer;
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.AdditionalMeasureProducer;
 import features.core.Capabilities;
 import features.core.Instance;
@@ -119,9 +119,9 @@ public class AdditiveRegression
   protected int m_NumIterationsPerformed;
 
   /** The model for the mean */
-  protected NaiveBayesWithoutImprovement m_zeroR;
+  protected Trial1 m_zeroR;
 
-  /** whether we have suitable data or nor (if not, NaiveBayesWithoutImprovement model is used) */
+  /** whether we have suitable data or nor (if not, Trial1 model is used) */
   protected boolean m_SuitableData = true;
   
   /**
@@ -345,14 +345,14 @@ public class AdditiveRegression
     double sum = 0;
     double temp_sum = 0;
     // Add the model for the mean first
-    m_zeroR = new NaiveBayesWithoutImprovement();
+    m_zeroR = new Trial1();
     m_zeroR.buildClassifier(newData);
     
-    // only class? -> use only NaiveBayesWithoutImprovement model
+    // only class? -> use only Trial1 model
     if (newData.numAttributes() == 1) {
       System.err.println(
 	  "Cannot build model (only class attribute present in data!), "
-	  + "using NaiveBayesWithoutImprovement model instead!");
+	  + "using Trial1 model instead!");
       m_SuitableData = false;
       return;
     }
@@ -485,12 +485,12 @@ public class AdditiveRegression
   public String toString() {
     StringBuffer text = new StringBuffer();
 
-    // only NaiveBayesWithoutImprovement model?
+    // only Trial1 model?
     if (!m_SuitableData) {
       StringBuffer buf = new StringBuffer();
       buf.append(this.getClass().getName().replaceAll(".*\\.", "") + "\n");
       buf.append(this.getClass().getName().replaceAll(".*\\.", "").replaceAll(".", "=") + "\n\n");
-      buf.append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
+      buf.append("Warning: No model could be built, hence Trial1 model is used:\n\n");
       buf.append(m_zeroR.toString());
       return buf.toString();
     }
@@ -501,7 +501,7 @@ public class AdditiveRegression
 
     text.append("Additive Regression\n\n");
 
-    text.append("NaiveBayesWithoutImprovement model\n\n" + m_zeroR + "\n\n");
+    text.append("Trial1 model\n\n" + m_zeroR + "\n\n");
 
     text.append("Base classifier " 
 		+ getClassifier().getClass().getName()

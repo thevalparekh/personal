@@ -116,7 +116,7 @@ public class RandomTree
   /** Whether unclassified instances are allowed */
   protected boolean m_AllowUnclassifiedInstances = false;
 
-  /** a NaiveBayesWithoutImprovement model in case no model can be built from the data */
+  /** a Trial1 model in case no model can be built from the data */
   protected Classifier m_zeroR;
 
   /**
@@ -525,12 +525,12 @@ public class RandomTree
     data = new Instances(data);
     data.deleteWithMissingClass();
 
-    // only class? -> build NaiveBayesWithoutImprovement model
+    // only class? -> build Trial1 model
     if (data.numAttributes() == 1) {
       System.err
       .println("Cannot build model (only class attribute present in data!), "
-          + "using NaiveBayesWithoutImprovement model instead!");
-      m_zeroR = new features.classifiers.rules.NaiveBayesWithoutImprovement();
+          + "using Trial1 model instead!");
+      m_zeroR = new features.classifiers.rules.Trial1();
       m_zeroR.buildClassifier(data);
       return;
     } else {
@@ -601,7 +601,7 @@ public class RandomTree
    */
   public String toString() {
     
-    // only NaiveBayesWithoutImprovement model?
+    // only Trial1 model?
     if (m_zeroR != null) {
       StringBuffer buf = new StringBuffer();
       buf
@@ -611,7 +611,7 @@ public class RandomTree
                  .replaceAll(".", "=")
                  + "\n\n");
       buf
-        .append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
+        .append("Warning: No model could be built, hence Trial1 model is used:\n\n");
       buf.append(m_zeroR.toString());
       return buf.toString();
     }

@@ -75,7 +75,7 @@ public class DecisionStump
   /** The instances used for training. */
   private Instances m_Instances;
 
-  /** a NaiveBayesWithoutImprovement model in case no model can be built from the data */
+  /** a Trial1 model in case no model can be built from the data */
   private Classifier m_ZeroR;
     
   /**
@@ -134,12 +134,12 @@ public class DecisionStump
     instances = new Instances(instances);
     instances.deleteWithMissingClass();
     
-    // only class? -> build NaiveBayesWithoutImprovement model
+    // only class? -> build Trial1 model
     if (instances.numAttributes() == 1) {
       System.err.println(
 	  "Cannot build model (only class attribute present in data!), "
-	  + "using NaiveBayesWithoutImprovement model instead!");
-      m_ZeroR = new features.classifiers.rules.NaiveBayesWithoutImprovement();
+	  + "using Trial1 model instead!");
+      m_ZeroR = new features.classifiers.rules.Trial1();
       m_ZeroR.buildClassifier(instances);
       return;
     }
@@ -282,12 +282,12 @@ public class DecisionStump
    */
   public String toString(){
 
-    // only NaiveBayesWithoutImprovement model?
+    // only Trial1 model?
     if (m_ZeroR != null) {
       StringBuffer buf = new StringBuffer();
       buf.append(this.getClass().getName().replaceAll(".*\\.", "") + "\n");
       buf.append(this.getClass().getName().replaceAll(".*\\.", "").replaceAll(".", "=") + "\n\n");
-      buf.append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
+      buf.append("Warning: No model could be built, hence Trial1 model is used:\n\n");
       buf.append(m_ZeroR.toString());
       return buf.toString();
     }

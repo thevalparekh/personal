@@ -35,7 +35,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.Evaluation;
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.AdditionalMeasureProducer;
 import features.core.Attribute;
 import features.core.Instance;
@@ -61,7 +61,7 @@ import features.core.Utils;
  *  eg: features.classifiers.bayes.NaiveBayes</pre>
  * 
  * <pre> 
- * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
+ * Options specific to classifier features.classifiers.rules.Trial1:
  * </pre>
  * 
  * <pre> -D
@@ -81,7 +81,7 @@ public class RegressionSplitEvaluator
   static final long serialVersionUID = -328181640503349202L;
 
   /** The template classifier */
-  protected Classifier m_Template = new NaiveBayesWithoutImprovement();
+  protected Classifier m_Template = new Trial1();
 
   /** The classifier used for evaluation */
   protected Classifier m_Classifier;
@@ -167,7 +167,7 @@ public class RegressionSplitEvaluator
    *  eg: features.classifiers.bayes.NaiveBayes</pre>
    * 
    * <pre> 
-   * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
+   * Options specific to classifier features.classifiers.rules.Trial1:
    * </pre>
    * 
    * <pre> -D

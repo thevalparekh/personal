@@ -307,7 +307,7 @@ public class AlgorithmListPanel
     m_List.addMouseListener(mouseListener);
   
     m_ClassifierEditor.setClassType(Classifier.class);
-    m_ClassifierEditor.setValue(new features.classifiers.rules.NaiveBayesWithoutImprovement());
+    m_ClassifierEditor.setValue(new features.classifiers.rules.Trial1());
     m_ClassifierEditor.addPropertyChangeListener(new PropertyChangeListener() {
 	public void propertyChange(PropertyChangeEvent e) {
 	  repaint();

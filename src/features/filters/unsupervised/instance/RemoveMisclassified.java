@@ -50,7 +50,7 @@ import features.filters.UnsupervisedFilter;
  *  Full class name of classifier to use, followed
  *  by scheme options. eg:
  *   "features.classifiers.bayes.NaiveBayes -D"
- *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+ *  (default: features.classifiers.rules.Trial1)</pre>
  * 
  * <pre> -C &lt;class index&gt;
  *  Attribute on which misclassifications are based.
@@ -86,7 +86,7 @@ public class RemoveMisclassified
   static final long serialVersionUID = 5469157004717663171L;
 
   /** The classifier used to do the cleansing */
-  protected Classifier m_cleansingClassifier = new features.classifiers.rules.NaiveBayesWithoutImprovement();
+  protected Classifier m_cleansingClassifier = new features.classifiers.rules.Trial1();
 
   /** The attribute to treat as the class for purposes of cleansing. */
   protected int m_classIndex = -1;
@@ -363,7 +363,7 @@ public class RemoveMisclassified
 	      "\tFull class name of classifier to use, followed\n"
 	      + "\tby scheme options. eg:\n"
 	      + "\t\t\"features.classifiers.bayes.NaiveBayes -D\"\n"
-	      + "\t(default: features.classifiers.rules.NaiveBayesWithoutImprovement)",
+	      + "\t(default: features.classifiers.rules.Trial1)",
 	      "W", 1, "-W <classifier specification>"));
     newVector.addElement(new Option(
 	      "\tAttribute on which misclassifications are based.\n"
@@ -399,7 +399,7 @@ public class RemoveMisclassified
    *  Full class name of classifier to use, followed
    *  by scheme options. eg:
    *   "features.classifiers.bayes.NaiveBayes -D"
-   *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+   *  (default: features.classifiers.rules.Trial1)</pre>
    * 
    * <pre> -C &lt;class index&gt;
    *  Attribute on which misclassifications are based.
@@ -430,7 +430,7 @@ public class RemoveMisclassified
 
     String classifierString = Utils.getOption('W', options);
     if (classifierString.length() == 0)
-      classifierString = features.classifiers.rules.NaiveBayesWithoutImprovement.class.getName();
+      classifierString = features.classifiers.rules.Trial1.class.getName();
     String[] classifierSpec = Utils.splitOptions(classifierString);
     if (classifierSpec.length == 0) {
       throw new Exception("Invalid classifier specification string");

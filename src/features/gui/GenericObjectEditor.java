@@ -1750,7 +1750,7 @@ public class GenericObjectEditor implements PropertyEditor, CustomPanelSupplier 
       GenericObjectEditor.registerEditors();
       GenericObjectEditor ce = new GenericObjectEditor(true);
       ce.setClassType(features.classifiers.Classifier.class);
-      Object initial = new features.classifiers.rules.NaiveBayesWithoutImprovement();
+      Object initial = new features.classifiers.rules.Trial1();
       if (args.length > 0){
 	ce.setClassType(Class.forName(args[0]));
 	if(args.length > 1){

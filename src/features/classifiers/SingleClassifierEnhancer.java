@@ -26,7 +26,7 @@ package features.classifiers;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.Capabilities;
 import features.core.Option;
 import features.core.OptionHandler;
@@ -46,14 +46,14 @@ public abstract class SingleClassifierEnhancer extends Classifier {
   private static final long serialVersionUID = -3665885256363525164L;
 
   /** The base classifier to use */
-  protected Classifier m_Classifier = new NaiveBayesWithoutImprovement();
+  protected Classifier m_Classifier = new Trial1();
 
   /**
    * String describing default classifier.
    */
   protected String defaultClassifierString() {
     
-    return "features.classifiers.rules.NaiveBayesWithoutImprovement";
+    return "features.classifiers.rules.Trial1";
   }
 
   /**

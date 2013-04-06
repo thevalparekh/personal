@@ -58,7 +58,7 @@ import features.core.Utils;
  * <pre> -B &lt;classifier specification&gt;
  *  Full class name of classifier to include, followed
  *  by scheme options. May be specified multiple times.
- *  (default: "features.classifiers.rules.NaiveBayesWithoutImprovement")</pre>
+ *  (default: "features.classifiers.rules.Trial1")</pre>
  * 
  * <pre> -D
  *  If set, classifier is run in debug mode and
@@ -139,7 +139,7 @@ public class MultiScheme
    * <pre> -B &lt;classifier specification&gt;
    *  Full class name of classifier to include, followed
    *  by scheme options. May be specified multiple times.
-   *  (default: "features.classifiers.rules.NaiveBayesWithoutImprovement")</pre>
+   *  (default: "features.classifiers.rules.Trial1")</pre>
    * 
    * <pre> -D
    *  If set, classifier is run in debug mode and

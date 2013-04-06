@@ -232,7 +232,7 @@ public class OneR
   /** The minimum bucket size */
   private int m_minBucketSize = 6;
 
-  /** a NaiveBayesWithoutImprovement model in case no model can be built from the data */
+  /** a Trial1 model in case no model can be built from the data */
   private Classifier m_ZeroR;
     
   /**
@@ -307,12 +307,12 @@ public class OneR
     Instances data = new Instances(instances);
     data.deleteWithMissingClass();
 
-    // only class? -> build NaiveBayesWithoutImprovement model
+    // only class? -> build Trial1 model
     if (data.numAttributes() == 1) {
       System.err.println(
 	  "Cannot build model (only class attribute present in data!), "
-	  + "using NaiveBayesWithoutImprovement model instead!");
-      m_ZeroR = new features.classifiers.rules.NaiveBayesWithoutImprovement();
+	  + "using Trial1 model instead!");
+      m_ZeroR = new features.classifiers.rules.Trial1();
       m_ZeroR.buildClassifier(data);
       return;
     }
@@ -578,7 +578,7 @@ public class OneR
     result = new StringBuffer();
     
     if (m_ZeroR != null) {
-      result.append(((NaiveBayesWithoutImprovement) m_ZeroR).toSource(className));
+      result.append(((Trial1) m_ZeroR).toSource(className));
     }
     else {
       result.append("class " + className + " {\n");
@@ -637,12 +637,12 @@ public class OneR
    */
   public String toString() {
 
-    // only NaiveBayesWithoutImprovement model?
+    // only Trial1 model?
     if (m_ZeroR != null) {
       StringBuffer buf = new StringBuffer();
       buf.append(this.getClass().getName().replaceAll(".*\\.", "") + "\n");
       buf.append(this.getClass().getName().replaceAll(".*\\.", "").replaceAll(".", "=") + "\n\n");
-      buf.append("Warning: No model could be built, hence NaiveBayesWithoutImprovement model is used:\n\n");
+      buf.append("Warning: No model could be built, hence Trial1 model is used:\n\n");
       buf.append(m_ZeroR.toString());
       return buf.toString();
     }

@@ -28,7 +28,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.SingleClassifierEnhancer;
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.Capabilities;
 import features.core.Instance;
 import features.core.Instances;
@@ -136,8 +136,8 @@ public class OrdinalClassClassifier
   /** The filters used to transform the class. */
   private MakeIndicator[] m_ClassFilters;
 
-  /** NaiveBayesWithoutImprovement classifier for when all base classifier return zero probability. */
-  private NaiveBayesWithoutImprovement m_ZeroR;
+  /** Trial1 classifier for when all base classifier return zero probability. */
+  private Trial1 m_ZeroR;
 
   /**
    * String describing default classifier.
@@ -225,7 +225,7 @@ public class OrdinalClassClassifier
     if (m_Classifier == null) {
       throw new Exception("No base classifier has been set!");
     }
-    m_ZeroR = new NaiveBayesWithoutImprovement();
+    m_ZeroR = new Trial1();
     m_ZeroR.buildClassifier(insts);
 
     int numClassifiers = insts.numClasses() - 1;

@@ -44,11 +44,11 @@ import java.util.Vector;
  * 
  * <pre> -W
  *  Full name of the OptionHandler analysed.
- *  eg: features.classifiers.rules.NaiveBayesWithoutImprovement
- *  (default features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+ *  eg: features.classifiers.rules.Trial1
+ *  (default features.classifiers.rules.Trial1)</pre>
  * 
  * <pre> 
- * Options specific to option handler features.classifiers.rules.NaiveBayesWithoutImprovement:
+ * Options specific to option handler features.classifiers.rules.Trial1:
  * </pre>
  * 
  * <pre> -D
@@ -68,7 +68,7 @@ public class CheckOptionHandler
   extends Check {
 
   /** the optionhandler to test */
-  protected OptionHandler m_OptionHandler = new features.classifiers.rules.NaiveBayesWithoutImprovement();
+  protected OptionHandler m_OptionHandler = new features.classifiers.rules.Trial1();
 
   /** the user-supplied options */
   protected String[] m_UserOptions = new String[0];
@@ -90,8 +90,8 @@ public class CheckOptionHandler
     
     result.addElement(new Option(
         "\tFull name of the OptionHandler analysed.\n"
-        +"\teg: features.classifiers.rules.NaiveBayesWithoutImprovement\n"
-        + "\t(default features.classifiers.rules.NaiveBayesWithoutImprovement)",
+        +"\teg: features.classifiers.rules.Trial1\n"
+        + "\t(default features.classifiers.rules.Trial1)",
         "W", 1, "-W"));
     
     if (m_OptionHandler != null) {
@@ -122,11 +122,11 @@ public class CheckOptionHandler
    * 
    * <pre> -W
    *  Full name of the OptionHandler analysed.
-   *  eg: features.classifiers.rules.NaiveBayesWithoutImprovement
-   *  (default features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+   *  eg: features.classifiers.rules.Trial1
+   *  (default features.classifiers.rules.Trial1)</pre>
    * 
    * <pre> 
-   * Options specific to option handler features.classifiers.rules.NaiveBayesWithoutImprovement:
+   * Options specific to option handler features.classifiers.rules.Trial1:
    * </pre>
    * 
    * <pre> -D
@@ -145,7 +145,7 @@ public class CheckOptionHandler
     
     tmpStr = Utils.getOption('W', options);
     if (tmpStr.length() == 0)
-      tmpStr = features.classifiers.rules.NaiveBayesWithoutImprovement.class.getName();
+      tmpStr = features.classifiers.rules.Trial1.class.getName();
     setUserOptions(Utils.partitionOptions(options));
     setOptionHandler(
 	(OptionHandler) Utils.forName(

@@ -30,7 +30,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.Sourcable;
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.AdditionalMeasureProducer;
 import features.core.Attribute;
 import features.core.Capabilities;
@@ -88,8 +88,8 @@ public class REPTree
   /** for serialization */
   static final long serialVersionUID = -9216785998198681299L;
   
-  /** NaiveBayesWithoutImprovement model that is used if no attributes are present. */
-  protected NaiveBayesWithoutImprovement m_zeroR;
+  /** Trial1 model that is used if no attributes are present. */
+  protected Trial1 m_zeroR;
 
   /**
    * Returns a string describing classifier
@@ -1755,7 +1755,7 @@ public class REPTree
 
     m_zeroR = null;
     if (data.numAttributes() == 1) {
-      m_zeroR = new NaiveBayesWithoutImprovement();
+      m_zeroR = new Trial1();
       m_zeroR.buildClassifier(data);
       return;
     }
@@ -1957,7 +1957,7 @@ public class REPTree
   public String toString() {
 
     if (m_zeroR != null) {
-      return "No attributes other than class. Using NaiveBayesWithoutImprovement.\n\n" + m_zeroR.toString();
+      return "No attributes other than class. Using Trial1.\n\n" + m_zeroR.toString();
     }
     if ((m_Tree == null)) {
       return "REPTree: No model built yet.";

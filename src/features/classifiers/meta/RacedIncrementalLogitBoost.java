@@ -31,7 +31,7 @@ import java.util.Vector;
 import features.classifiers.Classifier;
 import features.classifiers.RandomizableSingleClassifierEnhancer;
 import features.classifiers.UpdateableClassifier;
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.Attribute;
 import features.core.Capabilities;
 import features.core.FastVector;
@@ -185,7 +185,7 @@ public class RacedIncrementalLogitBoost
   protected Committee m_bestCommittee;
 
   /** The default scheme used when committees aren't ready */    
-  protected NaiveBayesWithoutImprovement m_zeroR = null;
+  protected Trial1 m_zeroR = null;
 
   /** Whether the validation set has recently been changed */ 
   protected boolean m_validationSetChanged;
@@ -867,7 +867,7 @@ public class RacedIncrementalLogitBoost
     if (m_bestCommittee != null) return m_bestCommittee.distributionForInstance(instance);
     else {
       if (m_validationSetChanged || m_zeroR == null) {
-	m_zeroR = new NaiveBayesWithoutImprovement();
+	m_zeroR = new Trial1();
 	m_zeroR.buildClassifier(m_validationSet);
 	m_validationSetChanged = false;
       }
@@ -1306,14 +1306,14 @@ public class RacedIncrementalLogitBoost
     } else {
       if ((m_validationSetChanged || m_zeroR == null) && m_validationSet != null
 	  && m_validationSet.numInstances() > 0) {
-	m_zeroR = new NaiveBayesWithoutImprovement();
+	m_zeroR = new Trial1();
 	try {
 	  m_zeroR.buildClassifier(m_validationSet);
 	} catch (Exception e) {}
 	m_validationSetChanged = false;
       }
       if (m_zeroR != null) {
-	return ("RacedIncrementalLogitBoost: insufficient data to build model, resorting to NaiveBayesWithoutImprovement:\n\n"
+	return ("RacedIncrementalLogitBoost: insufficient data to build model, resorting to Trial1:\n\n"
 		+ m_zeroR.toString());
       }
       else return ("RacedIncrementalLogitBoost: no model built yet.");

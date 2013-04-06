@@ -93,7 +93,7 @@ import features.core.TechnicalInformation.Type;
  *  Place any classifier options LAST on the command line
  *  following a "--". eg.:
  *   -B features.classifiers.bayes.NaiveBayes ... -- -K
- *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+ *  (default: features.classifiers.rules.Trial1)</pre>
  * 
  * <pre> -T
  *  Use the training data to estimate accuracy.</pre>
@@ -103,7 +103,7 @@ import features.core.TechnicalInformation.Type;
  *  estimate accuracy on.</pre>
  * 
  * <pre> 
- * Options specific to scheme features.classifiers.rules.NaiveBayesWithoutImprovement:
+ * Options specific to scheme features.classifiers.rules.Trial1:
  * </pre>
  * 
  * <pre> -D

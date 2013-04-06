@@ -30,7 +30,7 @@ import java.util.Random;
 import features.classifiers.Classifier;
 import features.classifiers.RandomizableSingleClassifierEnhancer;
 import features.classifiers.meta.FilteredClassifier;
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.Capabilities;
 import features.core.FastVector;
 import features.core.Instance;
@@ -504,7 +504,7 @@ public class ND
       if (data.numInstances() > 0) {
 	classifier.setClassifier(Classifier.makeCopies(m_Classifier, 1)[0]);
       } else {
-	classifier.setClassifier(new NaiveBayesWithoutImprovement());
+	classifier.setClassifier(new Trial1());
       }
       classifier.setFilter(filter);
       

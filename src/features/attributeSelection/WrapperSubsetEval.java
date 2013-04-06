@@ -30,7 +30,7 @@ import java.util.Vector;
 
 import features.classifiers.Classifier;
 import features.classifiers.Evaluation;
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.Capabilities;
 import features.core.Instances;
 import features.core.Option;
@@ -83,7 +83,7 @@ import features.filters.unsupervised.attribute.Remove;
  *  Place any classifier options LAST on the command line
  *  following a "--". eg.:
  *   -B features.classifiers.bayes.NaiveBayes ... -- -K
- *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+ *  (default: features.classifiers.rules.Trial1)</pre>
  * 
  * <pre> -F &lt;num&gt;
  *  number of cross validation folds to use for estimating accuracy.
@@ -99,7 +99,7 @@ import features.filters.unsupervised.attribute.Remove;
  *  (default: 0.01 (1%))</pre>
  * 
  * <pre> 
- * Options specific to scheme features.classifiers.rules.NaiveBayesWithoutImprovement:
+ * Options specific to scheme features.classifiers.rules.Trial1:
  * </pre>
  * 
  * <pre> -D
@@ -199,7 +199,7 @@ public class WrapperSubsetEval
 	+ "\tPlace any classifier options LAST on the command line\n"
 	+ "\tfollowing a \"--\". eg.:\n"
 	+ "\t\t-B features.classifiers.bayes.NaiveBayes ... -- -K\n"
-	+ "\t(default: features.classifiers.rules.NaiveBayesWithoutImprovement)", 
+	+ "\t(default: features.classifiers.rules.Trial1)", 
 	"B", 1, "-B <base learner>"));
     
     newVector.addElement(new Option(
@@ -245,7 +245,7 @@ public class WrapperSubsetEval
    *  Place any classifier options LAST on the command line
    *  following a "--". eg.:
    *   -B features.classifiers.bayes.NaiveBayes ... -- -K
-   *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+   *  (default: features.classifiers.rules.Trial1)</pre>
    * 
    * <pre> -F &lt;num&gt;
    *  number of cross validation folds to use for estimating accuracy.
@@ -261,7 +261,7 @@ public class WrapperSubsetEval
    *  (default: 0.01 (1%))</pre>
    * 
    * <pre> 
-   * Options specific to scheme features.classifiers.rules.NaiveBayesWithoutImprovement:
+   * Options specific to scheme features.classifiers.rules.Trial1:
    * </pre>
    * 
    * <pre> -D
@@ -280,7 +280,7 @@ public class WrapperSubsetEval
     optionString = Utils.getOption('B', options);
 
     if (optionString.length() == 0)
-      optionString = "NaiveBayes";//NaiveBayesWithoutImprovement.class.getName();
+      optionString = "NaiveBayes";//Trial1.class.getName();
     setClassifier(Classifier.forName(optionString, 
 				     Utils.partitionOptions(options)));
     optionString = Utils.getOption('F', options);
@@ -464,7 +464,7 @@ public class WrapperSubsetEval
   protected void resetOptions () {
     m_trainInstances = null;
     m_Evaluation = null;
-    m_BaseClassifier = new NaiveBayesWithoutImprovement();
+    m_BaseClassifier = new Trial1();
     m_folds = 5;
     m_seed = 1;
     m_threshold = 0.01;

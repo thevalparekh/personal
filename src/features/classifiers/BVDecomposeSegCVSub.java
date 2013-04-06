@@ -142,7 +142,7 @@ import features.core.TechnicalInformation.Type;
  *  eg: features.classifiers.bayes.NaiveBayes</pre>
  * 
  * <pre> 
- * Options specific to learner features.classifiers.rules.NaiveBayesWithoutImprovement:
+ * Options specific to learner features.classifiers.rules.Trial1:
  * </pre>
  * 
  * <pre> -D
@@ -163,7 +163,7 @@ public class BVDecomposeSegCVSub
     protected boolean m_Debug;
     
     /** An instantiated base classifier used for getting and testing options. */
-    protected Classifier m_Classifier = new features.classifiers.rules.NaiveBayesWithoutImprovement();
+    protected Classifier m_Classifier = new features.classifiers.rules.Trial1();
     
     /** The options to be passed to the base classifier. */
     protected String [] m_ClassifierOptions;
@@ -348,7 +348,7 @@ public class BVDecomposeSegCVSub
      *  eg: features.classifiers.bayes.NaiveBayes</pre>
      * 
      * <pre> 
-     * Options specific to learner features.classifiers.rules.NaiveBayesWithoutImprovement:
+     * Options specific to learner features.classifiers.rules.Trial1:
      * </pre>
      * 
      * <pre> -D

@@ -45,7 +45,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.filechooser.FileFilter;
 
-import features.classifiers.rules.NaiveBayesWithoutImprovement;
+import features.classifiers.rules.Trial1;
 import features.core.Instances;
 import features.core.OptionHandler;
 import features.core.Utils;
@@ -128,7 +128,7 @@ public class Classifier extends JPanel implements BeanCommon, Visible,
    */
   private Instances m_trainingSet;
   private transient Instances m_testingSet;
-  private features.classifiers.Classifier m_Classifier = new NaiveBayesWithoutImprovement();
+  private features.classifiers.Classifier m_Classifier = new Trial1();
   /** Template used for creating copies when building in parallel */
   private features.classifiers.Classifier m_ClassifierTemplate = m_Classifier;
 

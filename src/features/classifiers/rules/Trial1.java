@@ -15,7 +15,7 @@
  */
 
 /*
- *    NaiveBayesWithoutImprovement.java
+ *    Trial1.java
  *    Copyright (C) 1999 University of Waikato, Hamilton, New Zealand
  *
  */
@@ -54,7 +54,7 @@ import features.core.Capabilities.Capability;
  * @author Eibe Frank (eibe@cs.waikato.ac.nz)
  * @version $Revision: 5529 $
  */
-public class NaiveBayesWithoutImprovement 
+public class Trial1 
   extends Classifier 
   implements WeightedInstancesHandler, Sourcable {
 
@@ -231,12 +231,12 @@ public class NaiveBayesWithoutImprovement
   public String toString() {
 
     if (m_Class ==  null) {
-      return "NaiveBayesWithoutImprovement: No model built yet.";
+      return "Trial1: No model built yet.";
     }
     if (m_Counts == null) {
-      return "NaiveBayesWithoutImprovement predicts class value: " + m_ClassValue;
+      return "Trial1 predicts class value: " + m_ClassValue;
     } else {
-      return "NaiveBayesWithoutImprovement predicts class value: " + m_Class.value((int) m_ClassValue);
+      return "Trial1 predicts class value: " + m_Class.value((int) m_ClassValue);
     }
   }
   
@@ -255,6 +255,6 @@ public class NaiveBayesWithoutImprovement
    * @param argv the options
    */
   public static void main(String [] argv) {
-    runClassifier(new NaiveBayesWithoutImprovement(), argv);
+    runClassifier(new Trial1(), argv);
   }
 }

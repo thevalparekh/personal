@@ -97,10 +97,10 @@ import features.filters.unsupervised.attribute.MultiInstanceToPropositional;
  * 
  * <pre> -W
  *  Full name of base classifier.
- *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+ *  (default: features.classifiers.rules.Trial1)</pre>
  * 
  * <pre> 
- * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
+ * Options specific to classifier features.classifiers.rules.Trial1:
  * </pre>
  * 
  * <pre> -D
@@ -248,10 +248,10 @@ public class MIWrapper
    * 
    * <pre> -W
    *  Full name of base classifier.
-   *  (default: features.classifiers.rules.NaiveBayesWithoutImprovement)</pre>
+   *  (default: features.classifiers.rules.Trial1)</pre>
    * 
    * <pre> 
-   * Options specific to classifier features.classifiers.rules.NaiveBayesWithoutImprovement:
+   * Options specific to classifier features.classifiers.rules.Trial1:
    * </pre>
    * 
    * <pre> -D
