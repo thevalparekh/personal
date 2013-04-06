@@ -373,9 +373,9 @@ public class Explorer
       jf.pack();
       jf.setSize(800, 600);
       jf.setVisible(true);
-      Image icon = Toolkit.getDefaultToolkit().
-        getImage(m_explorer.getClass().getClassLoader().getResource("features/gui/"));
-      jf.setIconImage(icon);
+      //Image icon = Toolkit.getDefaultToolkit().
+        //getImage(m_explorer.getClass().getClassLoader().getResource("features/gui/"));
+      //jf.setIconImage(icon);
 
       if (args.length == 1) {
         System.err.println(Messages.getInstance().getString("Explorer_Main_Run_Error_Text") + args[0]);
