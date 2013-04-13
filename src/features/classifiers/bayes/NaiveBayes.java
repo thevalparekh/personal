@@ -23,8 +23,17 @@
 package features.classifiers.bayes;
 
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 import java.util.Vector;
+import java.util.Map.Entry;
+
+import javax.swing.JOptionPane;
 
 import features.classifiers.Classifier;
 import features.core.Attribute;
@@ -45,6 +54,12 @@ import features.estimators.DiscreteEstimator;
 import features.estimators.Estimator;
 import features.estimators.KernelEstimator;
 import features.estimators.NormalEstimator;
+import features.filters.Filter;
+import features.filters.SupervisedFilter;
+import features.filters.unsupervised.attribute.Remove;
+import features.gui.TaskLogger;
+import features.gui.explorer.Messages;
+import features.gui.explorer.PreprocessPanel;
 
 /**
  <!-- globalinfo-start -->
@@ -210,12 +225,15 @@ implements OptionHandler, WeightedInstancesHandler,
    */
   public void buildClassifier(Instances instances) throws Exception {
 
-    // can classifier handle the data?
+   
+	 // can classifier handle the data?
     getCapabilities().testWithFail(instances);
 
     // remove instances with missing class
     instances = new Instances(instances);
     instances.deleteWithMissingClass();
+    //apply feature selection
+	featureSelection(instances);
 
     m_NumClasses = instances.numClasses();
 
@@ -304,7 +322,243 @@ implements OptionHandler, WeightedInstancesHandler,
     m_Instances = new Instances(m_Instances, 0);
   }
 
+  /*
+   * Feature Selection
+   */
+  public Instances featureSelection(Instances m_Instances) {
+	  try {
+		  Map<Attribute, Double> attributeMap = new HashMap<Attribute, Double>();
+			int classIndex = m_Instances.numAttributes() - 1;
+			List<String> classValues = new ArrayList<String>(); 
+			Map<String, Integer> classSamples = new HashMap<String, Integer>();
+			Enumeration classAttrValues = m_Instances.attribute(classIndex).enumerateValues();
+			while(classAttrValues.hasMoreElements()) {
+				String attrValue = classAttrValues.nextElement().toString();
+				classValues.add(attrValue);
+				classSamples.put(attrValue, 0);
+			}
 
+			/*Enumeration<Attribute> enu = m_Instances.enumerateAttributes();
+			while (enu.hasMoreElements()) {
+				Attribute attribute = enu.nextElement();
+				attributeMap.put(attribute.name(), 0.0);
+			}*/
+
+			for (int i = 0; i < m_Instances.numInstances(); i++) {
+				Instance currentInst = m_Instances.instance(i);
+				if (currentInst.isMissing(classIndex)) {
+					break;
+				}
+				String instClassValue = currentInst.stringValue(classIndex);
+				if(classSamples.containsKey(instClassValue)) {
+					int currCount = classSamples.get(instClassValue).intValue();
+					classSamples.put(instClassValue, new Integer(currCount+1));
+				} else {
+					System.out.println("ERROR -- Something is wrong, check again");
+				}
+			}
+			
+			double sampleClassInformation = 0.0;
+			Iterator it2 = classSamples.entrySet().iterator(); 
+			int totalInstances = m_Instances.numInstances();
+			
+			
+			for (Entry<String, Integer> entry : classSamples.entrySet()) {  
+				  System.out.println(entry.getKey() + "=" + entry.getValue()); // Change this to whatever you need    
+	            try {
+	            	int currClassValue = entry.getValue().intValue();
+	            	double temp = currClassValue * 1.0 / totalInstances;
+	            	if( temp > 0)
+	            		temp = temp * (Math.log10(temp) / Math.log10(2));
+	            	sampleClassInformation +=temp;
+	            } catch (NumberFormatException ne) {
+	            	System.out.println("Caught number format exception at line 415" + ne);
+	            }
+			}
+			sampleClassInformation *= -1;
+			System.out.println("The sample class information is " + sampleClassInformation);
+			
+			Enumeration<Attribute> enu = m_Instances.enumerateAttributes();
+		    while (enu.hasMoreElements()) {
+		      Attribute attribute = (Attribute) enu.nextElement();
+		      attributeMap.put(attribute, 0.0);
+		      double attributeEntropy = 0.0;
+		      Map<String, HashMap<String, Integer>> attrValues = new HashMap<String, HashMap<String, Integer>>();
+		      
+		      
+		      /*iterate over the instances
+		       * if you find the attribute value in the map increment the count
+		       * else add and set the count to 1
+		       */
+		      int setCount = 0;
+		      if (m_Instances.numInstances() > 0) {
+		    	  for (int i = 0; i < m_Instances.numInstances(); i++) {
+		    		  Instance currentInst = m_Instances.instance(i);
+		    		  if (currentInst.isMissing(attribute)) {
+		    			  break;
+		    		  }
+		    		  String curr;
+		    		  String classvalue = currentInst.stringValue(classIndex);
+		    		  if (!attribute.isNumeric()) {
+		    			  curr = currentInst.stringValue(attribute);
+		    		  } else {
+		    			  curr = Double.toString(currentInst.value(attribute));
+		    		  }
+		    		  try {
+		    			  if(!attrValues.containsKey(curr)) {
+			    			  Map<String, Integer> map = new HashMap<String, Integer>();
+			    			  for (Entry<String, Integer> entry : classSamples.entrySet()) {  
+						    	  map.put(entry.getKey(), 0);
+						      }
+			    			  
+			    			  //map.put(classvalue, map.get(classvalue) + 1);
+			    			  attrValues.put(curr, (HashMap<String, Integer>) map);
+			    		  }
+			    			  @SuppressWarnings("unchecked")
+							Map<String, Integer> attrMap = (HashMap<String, Integer>)attrValues.get(curr);
+			    			attrMap.put(classvalue, attrMap.get(classvalue) + 1);
+			    			attrValues.put(curr, (HashMap<String, Integer>) attrMap);
+		    		  } catch (Exception ek) {
+		    			  System.out.println("Cannot find matching classvalue in the map");
+		    		  }
+		    		  setCount++;
+		    	  }
+		    	  
+		    	  for(Entry<String, HashMap<String, Integer>> setEntry : attrValues.entrySet()) {	  
+		    		  Map<String, Integer> classSetEntry = (HashMap<String, Integer>)setEntry.getValue();
+		    		  double attributeSetInformation = 0.0;
+		    		  int tempSetCount = 0;
+		    		  for(Entry<String,Integer> entry : classSetEntry.entrySet()) {
+		    			  if (entry.getValue().intValue() > 0 ) {
+		    				  tempSetCount += entry.getValue().intValue();
+		    			  }
+		    		  }
+		    		  for(Entry<String,Integer> entry : classSetEntry.entrySet()) {
+		    			  if (entry.getValue().intValue() > 0 ) {
+			    			  double probability = entry.getValue().intValue() / (tempSetCount * 1.0);
+			    			  probability = probability * (Math.log10(probability) / Math.log10(2));
+			    			  attributeSetInformation +=probability;
+		    			  }
+		    		  }
+		    		  attributeEntropy += (tempSetCount * 1.0 / m_Instances.numInstances()) * attributeSetInformation;
+		    	  }
+		    	  
+		      }
+		      /*here we check for every attribute value set to 
+		       * check for class value distribution
+		       */
+		      /*reset class samples*/
+		      attributeEntropy *= -1;
+	    	  attributeMap.put(attribute, attributeEntropy);
+		      
+		      
+		 
+//			Iterator it = attributeMap.entrySet().iterator();
+//		    while (it.hasNext()) {
+//		        Map.Entry pairs = (Map.Entry)it.next();
+//		        System.out.println(pairs.getKey() + " = " + pairs.getValue());
+//		        Attribute attr = m_Instances.attribute((String)pairs.getKey());
+//		        Enumeration attrValues1 = m_Instances.attribute(34).enumerateValues();
+//		        attr.enumerateValues();
+//		        System.out.println("no problem got it");
+//		    }
+		    }
+		    for(Entry<Attribute, Double> attrEntry : attributeMap.entrySet()) {
+		    	  System.out.println("Attribute = " + attrEntry.getKey().name() + "::: " + attrEntry.getValue().doubleValue() + ":::"  + (sampleClassInformation - attrEntry.getValue().doubleValue()));
+		    }
+		    /*lets remove unwanted attributes
+		     * and perform naive bayes on remaining attributes
+		     */
+		    try {
+				Remove r = new Remove();
+				int [] r1 = new int[attributeMap.size()];
+				Arrays.fill(r1, 0);
+				int selCount = 0;
+				
+				for(Entry<Attribute, Double> attrEntry : attributeMap.entrySet()) {
+					if ((sampleClassInformation - attrEntry.getValue().doubleValue()) < 0.1) {
+						r1[selCount] = attrEntry.getKey().index();
+						selCount++;
+					}
+				}
+			      
+			    int [] selected = new int[selCount];
+			    System.arraycopy(r1, 0, selected, 0, selCount);
+				if (selected.length == 0) {
+					return null;
+				}
+				if (selected.length == m_Instances.numAttributes()) {
+					// Pop up an error optionpane
+//					JOptionPane.showMessageDialog(PreprocessPanel.this,
+//							Messages.getInstance().getString("PreprocessPanel_JOptionPaneShowMessageDialog_Text_First"),
+//							Messages.getInstance().getString("PreprocessPanel_JOptionPaneShowMessageDialog_Text_Second"),
+//							JOptionPane.ERROR_MESSAGE);
+//					m_Log.logMessage(Messages.getInstance().getString("PreprocessPanel_Log_LogMessage_Text_First"));
+//					m_Log.statusMessage(Messages.getInstance().getString("PreprocessPanel_Log_StatusMessage_Text_First"));
+					return null;
+				}
+				r.setAttributeIndicesArray(selected);
+				m_Instances = applyFilter(r, classIndex, m_Instances);
+			} catch (Exception ex) {
+//				if (m_Log instanceof TaskLogger) {
+//					((TaskLogger)m_Log).taskFinished();
+//				}
+				// Pop up an error optionpane
+//				JOptionPane.showMessageDialog(PreprocessPanel.this,
+//						Messages.getInstance().getString("PreprocessPanel_JOptionPaneShowMessageDialog_Text_Third")
+//						+ ex.getMessage(),
+//						Messages.getInstance().getString("PreprocessPanel_JOptionPaneShowMessageDialog_Text_Fourth"),
+//						JOptionPane.ERROR_MESSAGE);
+//				m_Log.logMessage(Messages.getInstance().getString("PreprocessPanel_Log_LogMessage_Text_Second") + ex.getMessage());
+//				m_Log.statusMessage(Messages.getInstance().getString("PreprocessPanel_Log_StatusMessage_Text_Second"));
+			}
+		} catch (Exception e1) {
+			System.out.println("Main Loop");
+		}
+	  return m_Instances;
+  }
+  
+  protected Instances applyFilter(final Filter filter, int classIndex, Instances m_Instances) {
+
+		
+				
+					try {
+
+						if (filter != null) {
+
+							
+							String cmd = filter.getClass().getName();
+							if (filter instanceof OptionHandler)
+								cmd += " " + Utils.joinOptions(((OptionHandler) filter).getOptions());
+							
+							Instances copy = new Instances(m_Instances);
+//							Enumeration<Attribute> enu = m_Instances.enumerateAttributes();
+//							while (enu.hasMoreElements()) {
+//								Attribute attribute = enu.nextElement();
+//								System.out.println("Just checking for attributes inside preprocesspanel");
+//							}
+							copy.setClassIndex(classIndex);
+							filter.setInputFormat(copy);
+							Instances newInstances = Filter.useFilter(copy, filter);
+							if (newInstances == null || newInstances.numAttributes() < 1) {
+								throw new Exception(Messages.getInstance().getString("PreprocessPanel_ApplyFilter_Run_Exception_Text"));
+							}
+							
+							// if class was not set before, reset it again after use of filter
+							if (m_Instances.classIndex() < 0)
+								newInstances.setClassIndex(-1);
+							m_Instances = newInstances;
+							//setInstances(m_Instances);
+						}
+
+					} catch (Exception ex) {
+
+						
+					}
+					return m_Instances;
+	}
+
+  
   /**
    * Updates the classifier with the given instance.
    *

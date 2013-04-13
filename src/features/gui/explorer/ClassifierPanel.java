@@ -825,7 +825,7 @@ public class ClassifierPanel extends JPanel implements
     gbC.gridy = 0;
     gbC.gridx = 0;
     gbL.setConstraints(p2, gbC);
-    //mondo.add(p2); //dhaval sonal
+    mondo.add(p2); //dhaval sonal
     gbC = new GridBagConstraints();
     gbC.anchor = GridBagConstraints.NORTH;
     gbC.fill = GridBagConstraints.HORIZONTAL;

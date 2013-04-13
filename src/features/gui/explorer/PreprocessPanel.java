@@ -492,7 +492,6 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 				    	  }
 				    	  
 				      }
-				      System.out.println("Done");
 				      /*here we check for every attribute value set to 
 				       * check for class value distribution
 				       */
@@ -525,7 +524,7 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 						int selCount = 0;
 						
 						for(Entry<Attribute, Double> attrEntry : attributeMap.entrySet()) {
-							if ((sampleClassInformation - attrEntry.getValue().doubleValue()) < 0.1) {
+							if ((sampleClassInformation - attrEntry.getValue().doubleValue()) < 0.01) {
 								r1[selCount] = attrEntry.getKey().index();
 								selCount++;
 							}
@@ -827,11 +826,11 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 									throw new IllegalArgumentException(Messages.getInstance().getString("PreprocessPanel_ApplyFilter_Run_IllegalArgumentException_Text"));
 								}
 								Instances copy = new Instances(m_Instances);
-								Enumeration<Attribute> enu = m_Instances.enumerateAttributes();
-								while (enu.hasMoreElements()) {
-									Attribute attribute = enu.nextElement();
-									System.out.println("Just checking for attributes inside preprocesspanel");
-								}
+//								Enumeration<Attribute> enu = m_Instances.enumerateAttributes();
+//								while (enu.hasMoreElements()) {
+//									Attribute attribute = enu.nextElement();
+//									System.out.println("Just checking for attributes inside preprocesspanel");
+//								}
 								copy.setClassIndex(classIndex);
 								filter.setInputFormat(copy);
 								Instances newInstances = Filter.useFilter(copy, filter);

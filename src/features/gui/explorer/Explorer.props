@@ -55,7 +55,7 @@ Filter=
 
 # the default classifier in the classify tab, including options
 # (default is ZeroR)
-Classifier=features.classifiers.rules.Trial1
+Classifier=features.classifiers.bayes.NaiveBayesSimple
 
 # the default test mode in the classify tab 
 # (according to "testMode" variable in startClassifier method)
