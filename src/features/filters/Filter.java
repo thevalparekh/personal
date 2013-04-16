@@ -663,6 +663,7 @@ public abstract class Filter
     }
     filter.batchFinished();
     Instances newData = filter.getOutputFormat();
+    newData.removeFilter = data.removeFilter;
     Instance processed;
     while ((processed = filter.output()) != null) {
       newData.add(processed);

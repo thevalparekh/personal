@@ -32,6 +32,7 @@ import java.util.Random;
 
 import features.core.converters.ArffLoader.ArffReader;
 import features.core.converters.ConverterUtils.DataSource;
+import features.filters.unsupervised.attribute.Remove;
 
 
 /**
@@ -95,6 +96,9 @@ public class Instances implements Serializable, RevisionHandler {
 
   /** The attribute information. */
   protected/* @spec_public non_null@ */FastVector m_Attributes;
+  
+  public int [] r1;
+  public Remove removeFilter;
   /*
    * public invariant (\forall int i; 0 <= i && i < m_Attributes.size();
    * m_Attributes.elementAt(i) != null);
@@ -209,6 +213,7 @@ public class Instances implements Serializable, RevisionHandler {
     m_RelationName = dataset.m_RelationName;
     m_Attributes = dataset.m_Attributes;
     m_Instances = new FastVector(capacity);
+    removeFilter = dataset.removeFilter;
   }
 
   /**

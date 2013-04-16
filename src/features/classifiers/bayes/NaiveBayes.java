@@ -233,7 +233,7 @@ implements OptionHandler, WeightedInstancesHandler,
     instances = new Instances(instances);
     instances.deleteWithMissingClass();
     //apply feature selection
-	featureSelection(instances);
+	//featureSelection(instances);
 
     m_NumClasses = instances.numClasses();
 
@@ -497,8 +497,10 @@ implements OptionHandler, WeightedInstancesHandler,
 //					m_Log.statusMessage(Messages.getInstance().getString("PreprocessPanel_Log_StatusMessage_Text_First"));
 					return null;
 				}
+				
 				r.setAttributeIndicesArray(selected);
 				m_Instances = applyFilter(r, classIndex, m_Instances);
+				m_Instances.removeFilter = r;
 			} catch (Exception ex) {
 //				if (m_Log instanceof TaskLogger) {
 //					((TaskLogger)m_Log).taskFinished();

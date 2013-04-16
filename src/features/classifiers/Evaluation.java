@@ -1451,6 +1451,33 @@ public class Evaluation
     }
     return pred;
   }
+  
+  public double evaluateModelOnceAndRecordPrediction(Classifier classifier,
+	      Instance instance, Instances dataSet) throws Exception {
+
+	    Instance classMissing = (Instance)instance.copy();
+	    double pred = 0;
+	    //classMissing.setDataset(dataSet);
+	    classMissing.setDataset(dataSet);
+	    classMissing.setClassMissing();
+	    if (m_ClassIsNominal) {
+	      if (m_Predictions == null) {
+		m_Predictions = new FastVector();
+	      }
+	      double [] dist = classifier.distributionForInstance(classMissing);
+	      pred = Utils.maxIndex(dist);
+	      if (dist[(int)pred] <= 0) {
+		pred = Instance.missingValue();
+	      }
+	      updateStatsForClassifier(dist, instance);
+	      m_Predictions.addElement(new NominalPrediction(instance.classValue(), dist, 
+		  instance.weight()));
+	    } else {
+	      pred = classifier.classifyInstance(classMissing);
+	      updateStatsForPredictor(pred, instance);
+	    }
+	    return pred;
+	  }
 
   /**
    * Evaluates the classifier on a single instance.

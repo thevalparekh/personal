@@ -46,9 +46,12 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Random;
 import java.util.Vector;
+import java.util.Map.Entry;
 import java.util.zip.GZIPInputStream;
 import java.util.zip.GZIPOutputStream;
 
@@ -102,6 +105,8 @@ import features.core.converters.Loader;
 import features.core.converters.ConverterUtils.DataSource;
 import features.core.pmml.PMMLFactory;
 import features.core.pmml.PMMLModel;
+import features.filters.Filter;
+import features.filters.unsupervised.attribute.Remove;
 import features.gui.CostMatrixEditor;
 import features.gui.ExtensionFileFilter;
 import features.gui.GenericObjectEditor;
@@ -1044,6 +1049,65 @@ public class ClassifierPanel extends JPanel implements
       ex.printStackTrace();
     }
   }
+  
+  public static void processClassifierPrediction(Instance toPredict,
+	      Classifier classifier, Evaluation eval, Instances plotInstances,
+	      FastVector plotShape, FastVector plotSize, Instances dataSet) {
+	    try {
+	      double pred = eval.evaluateModelOnceAndRecordPrediction(classifier,
+	          toPredict, dataSet); //dhaval
+
+	      if (plotInstances != null) {
+	        double[] values = new double[plotInstances.numAttributes()];
+	        for (int i = 0; i < plotInstances.numAttributes(); i++) {
+	          if (i < toPredict.classIndex()) {
+	            values[i] = toPredict.value(i);
+	          } else if (i == toPredict.classIndex()) {
+	            values[i] = pred;
+	            values[i + 1] = toPredict.value(i);
+	            /*
+	             * // if the class value of the instances to predict is missing then
+	             * // set it to the predicted value if (toPredict.isMissing(i)) {
+	             * values[i+1] = pred; }
+	             */
+	            i++;
+	          } else {
+	            values[i] = toPredict.value(i - 1);
+	          }
+	        }
+
+	        plotInstances.add(new Instance(1.0, values));
+	        if (toPredict.classAttribute().isNominal()) {
+	          if (toPredict.isMissing(toPredict.classIndex())
+	              || Instance.isMissingValue(pred)) {
+	            plotShape.addElement(new Integer(Plot2D.MISSING_SHAPE));
+	          } else if (pred != toPredict.classValue()) {
+	            // set to default error point shape
+	            plotShape.addElement(new Integer(Plot2D.ERROR_SHAPE));
+	          } else {
+	            // otherwise set to constant (automatically assigned) point shape
+	            plotShape.addElement(new Integer(Plot2D.CONST_AUTOMATIC_SHAPE));
+	          }
+	          plotSize.addElement(new Integer(Plot2D.DEFAULT_SHAPE_SIZE));
+	        } else {
+	          // store the error (to be converted to a point size later)
+	          Double errd = null;
+	          if (!toPredict.isMissing(toPredict.classIndex())
+	              && !Instance.isMissingValue(pred)) {
+	            errd = new Double(pred - toPredict.classValue());
+	            plotShape.addElement(new Integer(Plot2D.CONST_AUTOMATIC_SHAPE));
+	          } else {
+	            // missing shape if actual class not present or prediction is
+	            // missing
+	            plotShape.addElement(new Integer(Plot2D.MISSING_SHAPE));
+	          }
+	          plotSize.addElement(errd);
+	        }
+	      }
+	    } catch (Exception ex) {
+	      ex.printStackTrace();
+	    }
+	  }
 
   /**
    * Post processes numeric class errors into shape sizes for plotting in the
@@ -1198,6 +1262,7 @@ public class ClassifierPanel extends JPanel implements
           FastVector plotShape = new FastVector();
           FastVector plotSize = new FastVector();
           Instances predInstances = null;
+          Instances instTest = null;
 
           // for timing
           long trainTimeStart = 0, trainTimeElapsed = 0;
@@ -1205,8 +1270,35 @@ public class ClassifierPanel extends JPanel implements
           try {
             if (m_TestLoader != null && m_TestLoader.getStructure() != null) {
               m_TestLoader.reset();
-              source = new DataSource(m_TestLoader);
-              userTestStructure = source.getStructure();
+              instTest = m_TestLoader.getDataSet();
+              try {
+//  				Remove r = new Remove();
+//  				
+//  				int [] r1 = new int[m_Instances.numAttributes()];
+//  				Arrays.fill(r1, 0);
+//  				int selCount = 0;
+//  				
+//  				Enumeration<Attribute> enu = m_Instances.enumerateAttributes();
+//  				while (enu.hasMoreElements()) {
+//  			      Attribute attribute = (Attribute) enu.nextElement();
+//  			      r1[selCount] = attribute.index();
+//  			      selCount++;
+//  				}
+//  				
+//  			      
+//  			    int [] selected = new int[selCount];
+//  			    System.arraycopy(r1, 0, selected, 0, selCount);
+//  				
+//  				
+//  				r.setAttributeIndicesArray(selected);
+//  			
+            	  source = new DataSource(m_TestLoader);
+                  userTestStructure = source.getStructure();
+                  instTest = source.getDataSet();
+            	  instTest = applyFilter(m_Instances.removeFilter, m_ClassCombo.getSelectedIndex(), instTest);
+  			} catch (Exception ex) {
+  				
+  			}
             }
           } catch (Exception ex) {
             ex.printStackTrace();
@@ -1287,10 +1379,17 @@ public class ClassifierPanel extends JPanel implements
                 throw new Exception(Messages.getInstance().getString(
                     "ClassifierPanel_StartClassifier_Exception_Text_Third"));
               }
-              if (!inst.equalHeaders(userTestStructure)) {
-                throw new Exception(Messages.getInstance().getString(
-                    "ClassifierPanel_StartClassifier_Exception_Text_Fourth"));
-              }
+//              if (!inst.equalHeaders(userTestStructure)) {
+//                throw new Exception(Messages.getInstance().getString(
+//                    "ClassifierPanel_StartClassifier_Exception_Text_Fourth"));
+//              }
+              instTest.setClassIndex(classIndex);
+              inst.setClassIndex(classIndex);
+//              if (!inst.equalHeaders(instTest)) {
+//                  throw new Exception(Messages.getInstance().getString(
+//                      "ClassifierPanel_StartClassifier_Exception_Text_Fourth"));
+//              }
+              //instTest.setClassIndex(classIndex);
               userTestStructure.setClassIndex(classIndex);
             } else {
               throw new Exception(Messages.getInstance().getString(
@@ -1686,8 +1785,12 @@ public class ClassifierPanel extends JPanel implements
 
               Instance instance;
               int jj = 0;
-              while (source.hasMoreElements(userTestStructure)) {
-                instance = source.nextElement(userTestStructure);
+              Instance instance1;
+              for (int i = 0; i < instTest.numInstances(); i++) {
+	    		instance = m_Instances.instance(i);
+	    		//while (source.hasMoreElements(userTestStructure)) {
+	                //instance = source.nextElement(userTestStructure);
+	    		instance.setDataset(instTest);
                 processClassifierPrediction(instance, classifier, eval,
                     predInstances, plotShape, plotSize);
                 if (outputPredictionsText) {
@@ -1729,9 +1832,9 @@ public class ClassifierPanel extends JPanel implements
             //dhaval sonal
             if (inst.attribute(classIndex).isNominal()) {
 
-//              if (outputPerClass) {
-//                outBuff.append(eval.toClassDetailsString() + "\n");
-//              }
+              if (outputPerClass) {
+                outBuff.append(eval.toClassDetailsString() + "\n");
+             }
 
               if (outputConfusion) {
                 outBuff.append(eval.toMatrixString() + "\n");
@@ -1858,6 +1961,35 @@ public class ClassifierPanel extends JPanel implements
       m_RunThread.start();
     }
   }
+  
+  protected Instances applyFilter(final Filter filter, int classIndex, Instances m_Instances) {	
+		try {
+
+			if (filter != null) {
+
+				
+				String cmd = filter.getClass().getName();
+				if (filter instanceof OptionHandler)
+				cmd += " " + Utils.joinOptions(((OptionHandler) filter).getOptions());
+				
+				Instances copy = new Instances(m_Instances);
+				copy.setClassIndex(classIndex);
+				filter.setInputFormat(copy);
+				Instances newInstances = Filter.useFilter(copy, filter);
+				if (newInstances == null || newInstances.numAttributes() < 1) {
+					throw new Exception(Messages.getInstance().getString("PreprocessPanel_ApplyFilter_Run_Exception_Text"));
+				}
+				
+				// if class was not set before, reset it again after use of filter
+				if (m_Instances.classIndex() < 0)
+					newInstances.setClassIndex(-1);
+				m_Instances = newInstances;
+				//setInstances(m_Instances);
+			}
+		} catch (Exception ex) {
+		}
+		return m_Instances;
+}
 
   /**
    * generates a prediction row for an instance

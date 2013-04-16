@@ -351,6 +351,7 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 						return;
 					}
 					r.setAttributeIndicesArray(selected);
+					m_Instances.removeFilter = r;
 					applyFilter(r);
 				} catch (Exception ex) {
 					if (m_Log instanceof TaskLogger) {
@@ -522,14 +523,28 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 						int [] r1 = new int[attributeMap.size()];
 						Arrays.fill(r1, 0);
 						int selCount = 0;
-						
+						double total =0.0;
+						int i = 0;
+						double[] informationGainValues = new double[attributeMap.size()];
 						for(Entry<Attribute, Double> attrEntry : attributeMap.entrySet()) {
-							if ((sampleClassInformation - attrEntry.getValue().doubleValue()) < 0.01) {
+							double x = (sampleClassInformation - attrEntry.getValue().doubleValue());
+							total +=x;
+							informationGainValues[i++] = x;
+							if ((sampleClassInformation - attrEntry.getValue().doubleValue()) < 0.3) {
 								r1[selCount] = attrEntry.getKey().index();
 								selCount++;
 							}
 						}
-					      
+						System.out.println("The average information gain is :" + total/attributeMap.size() );
+					    Arrays.sort(informationGainValues);
+					    
+					    System.out.println("----------------------------------------------");
+					    for (int k = 0; k < informationGainValues.length; k++) {
+							System.out.println(" " + k + " = " + informationGainValues[k] );
+					    }
+					    System.out.println("----------------------------------------------");
+
+					    
 					    int [] selected = new int[selCount];
 					    System.arraycopy(r1, 0, selected, 0, selCount);
 						if (selected.length == 0) {
@@ -546,7 +561,14 @@ implements CapabilitiesFilterChangeListener, ExplorerPanel, LogHandler {
 							return;
 						}
 						r.setAttributeIndicesArray(selected);
+						m_Instances.removeFilter = r;
 						applyFilter(r);
+						Thread.sleep(10);
+						int [] selected1 = new int[selCount+1];
+					    System.arraycopy(r1, 0, selected1, 0, selCount);
+					    selected1[selected.length] = 42;
+						r.setAttributeIndicesArray(selected1);
+						m_Instances.removeFilter = r;
 					} catch (Exception ex) {
 						if (m_Log instanceof TaskLogger) {
 							((TaskLogger)m_Log).taskFinished();
