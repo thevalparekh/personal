@@ -162,24 +162,44 @@ public class C45ModelSelection
 	  
 	  // Use 1E-3 here to get a closer approximation to the original
 	  // implementation.
-	  if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) &&
-	      Utils.gr(currentModel[i].gainRatio(),minResult)){ 
-	    //bestModel = currentModel[i];
-	    secondMaxAttr = maxAttr;
-	    secondMinResult = minResult;
-	    minResult = currentModel[i].gainRatio();
-	    maxAttr = i;
-	  } else if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) &&
-	      Utils.gr(currentModel[i].gainRatio(),secondMinResult)) {
-		  secondMinResult = currentModel[i].gainRatio();
-		  secondMaxAttr = i;
-	  }
-	  }
-      if (secondMaxAttr == -1) {
-    	  bestModel = currentModel[maxAttr];
-      } else {
-    	  bestModel = currentModel[secondMaxAttr];
-      }
+//	  if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) &&
+//	      Utils.gr(currentModel[i].gainRatio(),minResult)){ 
+//	    //bestModel = currentModel[i];
+//	    secondMaxAttr = maxAttr;
+//	    secondMinResult = minResult;
+//	    minResult = currentModel[i].gainRatio();
+//	    maxAttr = i;
+//	  } else if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) &&
+//	      Utils.gr(currentModel[i].gainRatio(),secondMinResult)) {
+//		  secondMinResult = currentModel[i].gainRatio();
+//		  secondMaxAttr = i;
+//	  }
+//	  }
+//      if (secondMaxAttr == -1) {
+//    	  bestModel = currentModel[maxAttr];
+//      } else {
+//    	  bestModel = currentModel[secondMaxAttr];
+//      }
+      
+      
+   // implementation.
+   	  if (Utils.gr(currentModel[i].gainRatio(),minResult)){ 
+   	    //bestModel = currentModel[i];
+   	    secondMaxAttr = maxAttr;
+   	    secondMinResult = minResult;
+   	    minResult = currentModel[i].gainRatio();
+   	    maxAttr = i;
+   	  } else if (
+   	      Utils.gr(currentModel[i].gainRatio(),secondMinResult)) {
+   		  secondMinResult = currentModel[i].gainRatio();
+   		  secondMaxAttr = i;
+   	  }
+   	  }
+         if (secondMaxAttr == -1) {
+       	  bestModel = currentModel[maxAttr];
+         } else {
+       	  bestModel = currentModel[secondMaxAttr];
+         }
 
       // Check if useful split was found.
       if (Utils.eq(minResult,0))
