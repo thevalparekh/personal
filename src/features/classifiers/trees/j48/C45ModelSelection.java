@@ -75,6 +75,7 @@ public class C45ModelSelection
   public final ClassifierSplitModel selectModel(Instances data){
 
     double minResult;
+    double secondMinResult;
     double currentResult;
     C45Split [] currentModel;
     C45Split bestModel = null;
@@ -152,6 +153,9 @@ public class C45ModelSelection
 
       // Find "best" attribute to split on.
       minResult = 0;
+      secondMinResult = 0;
+      int maxAttr = -1;
+      int secondMaxAttr = -1;
       for (i=0;i<data.numAttributes();i++){
 	if ((i != (data).classIndex()) &&
 	    (currentModel[i].checkModel()))
@@ -160,9 +164,21 @@ public class C45ModelSelection
 	  // implementation.
 	  if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) &&
 	      Utils.gr(currentModel[i].gainRatio(),minResult)){ 
-	    bestModel = currentModel[i];
+	    //bestModel = currentModel[i];
+	    secondMaxAttr = maxAttr;
+	    secondMinResult = minResult;
 	    minResult = currentModel[i].gainRatio();
-	  } 
+	    maxAttr = i;
+	  } else if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) &&
+	      Utils.gr(currentModel[i].gainRatio(),secondMinResult)) {
+		  secondMinResult = currentModel[i].gainRatio();
+		  secondMaxAttr = i;
+	  }
+	  }
+      if (secondMaxAttr == -1) {
+    	  bestModel = currentModel[maxAttr];
+      } else {
+    	  bestModel = currentModel[secondMaxAttr];
       }
 
       // Check if useful split was found.
