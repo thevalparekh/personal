@@ -8,4 +8,5 @@ features.classifiers.bayes.net.search.SearchAlgorithm=\
   
 # Lists the Classifiers I want to choose from
 features.classifiers.Classifier=\
- features.classifiers.bayes.NaiveBayes
+ features.classifiers.bayes.NaiveBayes,\
+ features.classifiers.trees.J48

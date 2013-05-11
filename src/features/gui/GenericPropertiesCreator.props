@@ -10,7 +10,8 @@ UseDynamic=true
 
 # Lists the Classifiers-Packages I want to choose from
 features.classifiers.Classifier=\
- features.classifiers.bayes
+ features.classifiers.bayes,\
+ features.classifiers.trees
 
 
 features.classifiers.bayes.net.estimate.BayesNetEstimator =\
