@@ -1204,6 +1204,7 @@ implements OptionHandler, WeightedInstancesHandler,
 @Override
 public void setChoiceSelection(int choice) {
 	// TODO Auto-generated method stub
+	//should be used only for c4.5
 	
 }
 }
