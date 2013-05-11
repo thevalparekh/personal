@@ -58,6 +58,8 @@ public class MakeDecList
 
   /** Minimum number of objects */
   private int minNumObj;
+  
+  private int choice;
 
   /** The model selection method. */
   private ModelSelection toSelectModeL;
@@ -90,13 +92,14 @@ public class MakeDecList
    * Constructor for dec list pruned using C4.5 pruning.
    */
   public MakeDecList(ModelSelection toSelectLocModel, double cf,
-		     int minNum){
+		     int minNum, int choice){
 
     toSelectModeL = toSelectLocModel;
     CF = cf;
     reducedErrorPruning = false;
     unpruned = false;
     minNumObj = minNum;
+    this.choice = choice;
   }
 
   /**

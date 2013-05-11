@@ -1200,5 +1200,11 @@ implements OptionHandler, WeightedInstancesHandler,
   public static void main(String [] argv) {
     runClassifier(new NaiveBayes(), argv);
   }
+
+@Override
+public void setChoiceSelection(int choice) {
+	// TODO Auto-generated method stub
+	
+}
 }
 

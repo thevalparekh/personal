@@ -43,7 +43,9 @@ public class C45ModelSelection
   private static final long serialVersionUID = 3372204862440821989L;
 
   /** Minimum number of objects in interval. */
-  private int m_minNoObj;               
+  private int m_minNoObj;  
+  
+  private int choice;
 
   /** All the training data */
   private Instances m_allData; // 
@@ -56,9 +58,10 @@ public class C45ModelSelection
    * @param allData FULL training dataset (necessary for
    * selection of split points).
    */
-  public C45ModelSelection(int minNoObj, Instances allData) {
+  public C45ModelSelection(int minNoObj,int choice, Instances allData) {
     m_minNoObj = minNoObj;
     m_allData = allData;
+    this.choice = choice;
   }
 
   /**
@@ -152,54 +155,71 @@ public class C45ModelSelection
       averageInfoGain = averageInfoGain/(double)validModels;
 
       // Find "best" attribute to split on.
-      minResult = 0;
-      secondMinResult = 0;
+      minResult = -1;
+      secondMinResult = -1;
       int maxAttr = -1;
+      System.out.println("dhaval  choice" + choice);
       int secondMaxAttr = -1;
-      for (i=0;i<data.numAttributes();i++){
-	if ((i != (data).classIndex()) &&
-	    (currentModel[i].checkModel()))
-	  
-	  // Use 1E-3 here to get a closer approximation to the original
-	  // implementation.
-//	  if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) &&
-//	      Utils.gr(currentModel[i].gainRatio(),minResult)){ 
-//	    //bestModel = currentModel[i];
-//	    secondMaxAttr = maxAttr;
-//	    secondMinResult = minResult;
-//	    minResult = currentModel[i].gainRatio();
-//	    maxAttr = i;
-//	  } else if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) &&
-//	      Utils.gr(currentModel[i].gainRatio(),secondMinResult)) {
-//		  secondMinResult = currentModel[i].gainRatio();
-//		  secondMaxAttr = i;
-//	  }
-//	  }
-//      if (secondMaxAttr == -1) {
-//    	  bestModel = currentModel[maxAttr];
-//      } else {
-//    	  bestModel = currentModel[secondMaxAttr];
-//      }
-      
-      
-   // implementation.
-   	  if (Utils.gr(currentModel[i].gainRatio(),minResult)){ 
-   	    //bestModel = currentModel[i];
-   	    secondMaxAttr = maxAttr;
-   	    secondMinResult = minResult;
-   	    minResult = currentModel[i].gainRatio();
-   	    maxAttr = i;
-   	  } else if (
-   	      Utils.gr(currentModel[i].gainRatio(),secondMinResult)) {
-   		  secondMinResult = currentModel[i].gainRatio();
-   		  secondMaxAttr = i;
-   	  }
-   	  }
-         if (secondMaxAttr == -1) {
-       	  bestModel = currentModel[maxAttr];
-         } else {
-       	  bestModel = currentModel[secondMaxAttr];
-         }
+			for (i = 0; i < data.numAttributes(); i++) {
+				if ((i != (data).classIndex()) && (currentModel[i].checkModel())
+						) {
+
+					// Use 1E-3 here to get a closer approximation to the
+					// original
+					// implementation.
+					// if ((currentModel[i].infoGain() >=
+					// (averageInfoGain-1E-3)) &&
+					// Utils.gr(currentModel[i].gainRatio(),minResult)){
+					// //bestModel = currentModel[i];
+					// secondMaxAttr = maxAttr;
+					// secondMinResult = minResult;
+					// minResult = currentModel[i].gainRatio();
+					// maxAttr = i;
+					// } else if ((currentModel[i].infoGain() >=
+					// (averageInfoGain-1E-3)) &&
+					// Utils.gr(currentModel[i].gainRatio(),secondMinResult)) {
+					// secondMinResult = currentModel[i].gainRatio();
+					// secondMaxAttr = i;
+					// }
+					// }
+					// if (secondMaxAttr == -1) {
+					// bestModel = currentModel[maxAttr];
+					// } else {
+					// bestModel = currentModel[secondMaxAttr];
+					// }
+
+					// implementation.
+					
+					if ( choice == 0) {
+						if (Utils.gr(currentModel[i].gainRatio(), minResult)) {
+							bestModel = currentModel[i];
+							minResult = currentModel[i].gainRatio();
+						} 
+					}
+					
+					if (choice == 1) {
+						if (Utils.gr(currentModel[i].gainRatio(), minResult)) {
+							// bestModel = currentModel[i];
+							secondMaxAttr = maxAttr;
+							secondMinResult = minResult;
+							minResult = currentModel[i].gainRatio();
+							maxAttr = i;
+						} else if (Utils.gr(currentModel[i].gainRatio(),
+								secondMinResult)) {
+							secondMinResult = currentModel[i].gainRatio();
+							secondMaxAttr = i;
+						}
+					}
+				}
+			}
+			
+			if (choice == 1) {
+				if (secondMaxAttr == -1) {
+					bestModel = currentModel[maxAttr];
+				} else {
+					bestModel = currentModel[secondMaxAttr];
+				}
+			}
 
       // Check if useful split was found.
       if (Utils.eq(minResult,0))

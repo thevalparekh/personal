@@ -185,6 +185,9 @@ public class ClassifierPanel extends JPanel implements
 
   /** Lets the user select the class column */
   protected JComboBox m_ClassCombo = new JComboBox();
+  
+  /** Lets the user select mode for c4.5 **/
+  protected JComboBox m_ChoiceCombo = new JComboBox();
 
   /** Click to set test mode to cross-validation */
   protected JRadioButton m_CVBut = new JRadioButton(Messages.getInstance()
@@ -386,9 +389,18 @@ public class ClassifierPanel extends JPanel implements
     m_ClassifierEditor.addPropertyChangeListener(new PropertyChangeListener() {
       public void propertyChange(PropertyChangeEvent e) {
         m_StartBut.setEnabled(true);
+        
+        Classifier classifier = (Classifier) m_ClassifierEditor.getValue();
+        System.out.println("the classifier is " + classifier.getClass().getName());
+        if (classifier.getClass().getName().equals("features.classifiers.trees.J48")) {
+      	  System.out.println("Enable choice selection");
+      	  m_ChoiceCombo.setEnabled(true);
+        } else { 
+        	  System.out.println("Disable choice selection");
+        	m_ChoiceCombo.setEnabled(false);
+        }
         // Check capabilities
         Capabilities currentFilter = m_ClassifierEditor.getCapabilitiesFilter();
-        Classifier classifier = (Classifier) m_ClassifierEditor.getValue();
         Capabilities currentSchemeCapabilities = null;
         if (classifier != null && currentFilter != null
             && (classifier instanceof CapabilitiesHandler)) {
@@ -491,6 +503,10 @@ public class ClassifierPanel extends JPanel implements
     m_ClassCombo.setPreferredSize(COMBO_SIZE);
     m_ClassCombo.setMaximumSize(COMBO_SIZE);
     m_ClassCombo.setMinimumSize(COMBO_SIZE);
+    m_ChoiceCombo.setEnabled(false);
+    m_ChoiceCombo.setPreferredSize(COMBO_SIZE);
+    m_ChoiceCombo.setMaximumSize(COMBO_SIZE);
+    m_ChoiceCombo.setMinimumSize(COMBO_SIZE);
 
     m_CVBut.setSelected(true);
     // see "testMode" variable in startClassifier
@@ -596,6 +612,17 @@ public class ClassifierPanel extends JPanel implements
       }
     });
 
+    m_ChoiceCombo.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+          int selected = m_ChoiceCombo.getSelectedIndex();
+          if (selected != -1) {
+            //TODO dhaval
+        	  System.out.println("Radio Button Selected" + selected);
+          }
+          //TODO dhaval
+        }
+      });
+    
     m_History.setHandleRightClicks(false);
     // see if we can popup a menu for the selected result
     m_History.getList().addMouseListener(new MouseAdapter() {
@@ -792,6 +819,8 @@ public class ClassifierPanel extends JPanel implements
     buttons.setLayout(new GridLayout(2, 2));
     buttons.add(m_ClassCombo);
     m_ClassCombo.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
+    buttons.add(m_ChoiceCombo);
+    m_ChoiceCombo.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     JPanel ssButs = new JPanel();
     ssButs.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
     ssButs.setLayout(new GridLayout(1, 2, 5, 5));
@@ -937,6 +966,10 @@ public class ClassifierPanel extends JPanel implements
       m_StartBut.setEnabled(false);
       m_StopBut.setEnabled(false);
     }
+    String[] c45ModeOptions = {"Max", "SecondMax", "Average"};
+    m_ChoiceCombo.setModel(new DefaultComboBoxModel(c45ModeOptions));
+    m_ChoiceCombo.setSelectedIndex(1);
+    //m_ChoiceCombo.setEnabled(true); 
   }
 
   /**
@@ -1266,7 +1299,7 @@ public class ClassifierPanel extends JPanel implements
 
           // for timing
           long trainTimeStart = 0, trainTimeElapsed = 0;
-
+          
           try {
             if (m_TestLoader != null && m_TestLoader.getStructure() != null) {
               m_TestLoader.reset();
@@ -1329,9 +1362,16 @@ public class ClassifierPanel extends JPanel implements
           int testMode = 0;
           int numFolds = 10;
           double percent = 66;
+          int choice = m_ChoiceCombo.getSelectedIndex();
+          System.out.println("Chocie selected in startClassifier is " + choice);
           int classIndex = m_ClassCombo.getSelectedIndex();
           Classifier classifier = (Classifier) m_ClassifierEditor.getValue();
           Classifier template = null;
+          System.out.println("the classifier is " + classifier.getClass().getName());
+          if (classifier.getClass().getName().equals("features.classifiers.trees.J48")) {
+        	  System.out.println("Claasifier Matched - set the choice");
+        	  classifier.setChoiceSelection(choice);
+          }
           try {
             template = Classifier.makeCopy(classifier);
           } catch (Exception ex) {

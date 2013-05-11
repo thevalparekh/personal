@@ -257,4 +257,10 @@ public class NaiveBayesSimple
   public static void main(String [] argv) {
     runClassifier(new NaiveBayesSimple(), argv);
   }
+
+@Override
+public void setChoiceSelection(int choice) {
+	// TODO Auto-generated method stub
+	
+}
 }

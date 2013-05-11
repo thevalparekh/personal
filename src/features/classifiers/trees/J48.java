@@ -135,6 +135,8 @@ public class J48
 
   /** Minimum number of instances */
   private int m_minNumObj = 2;
+  
+  private int choice = 1;
 
   /** Determines whether probabilities are smoothed using
       Laplace correction when predictions are generated */
@@ -213,6 +215,11 @@ public class J48
     return result;
   }
   
+  public void setChoiceSelection(int choice) {
+	  System.out.println("Inside setChoiceSelectioin" + choice);
+	  this.choice = choice;
+  }
+  
   /**
    * Generates the classifier.
    *
@@ -227,7 +234,7 @@ public class J48
     if (m_binarySplits)
       modSelection = new BinC45ModelSelection(m_minNumObj, instances);
     else
-      modSelection = new C45ModelSelection(m_minNumObj, instances);
+      modSelection = new C45ModelSelection(m_minNumObj,choice, instances);
     if (!m_reducedErrorPruning)
       m_root = new C45PruneableClassifierTree(modSelection, !m_unpruned, m_CF,
 					    m_subtreeRaising, !m_noCleanup);
@@ -518,6 +525,7 @@ public class J48
     String [] options = new String [14];
     int current = 0;
 
+    options[current++] = "-ch"; options[current++] = "" + choice;
     if (m_noCleanup) {
       options[current++] = "-L";
     }

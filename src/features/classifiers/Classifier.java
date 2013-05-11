@@ -69,6 +69,8 @@ public abstract class Classifier
    * generated successfully
    */
   public abstract void buildClassifier(Instances data) throws Exception;
+  
+  public abstract void setChoiceSelection(int choice);
 
   /**
    * Classifies the given test instance. The instance has to belong to a

@@ -122,6 +122,8 @@ public class PART
 
   /** Minimum number of objects */
   private int m_minNumObj = 2;
+  
+  private int choice = 1;
 
   /** Use reduced error pruning? */
   private boolean m_reducedErrorPruning = false;
@@ -188,7 +190,7 @@ public class PART
     else if (m_reducedErrorPruning) 
       result = new MakeDecList(null, m_numFolds, m_minNumObj, m_Seed).getCapabilities();
     else
-      result = new MakeDecList(null, m_CF, m_minNumObj).getCapabilities();
+      result = new MakeDecList(null, m_CF, m_minNumObj, choice).getCapabilities();
     
     return result;
   }
@@ -214,13 +216,13 @@ public class PART
     if (m_binarySplits)
       modSelection = new BinC45ModelSelection(m_minNumObj, instances);
     else
-      modSelection = new C45ModelSelection(m_minNumObj, instances);
+      modSelection = new C45ModelSelection(m_minNumObj, choice, instances);
     if (m_unpruned) 
       m_root = new MakeDecList(modSelection, m_minNumObj);
     else if (m_reducedErrorPruning) 
       m_root = new MakeDecList(modSelection, m_numFolds, m_minNumObj, m_Seed);
     else
-      m_root = new MakeDecList(modSelection, m_CF, m_minNumObj);
+      m_root = new MakeDecList(modSelection, m_CF, m_minNumObj, choice);
     m_root.buildClassifier(instances);
     if (m_binarySplits) {
       ((BinC45ModelSelection)modSelection).cleanup();
@@ -359,6 +361,8 @@ public class PART
     m_unpruned = Utils.getFlag('U', options);
     m_reducedErrorPruning = Utils.getFlag('R', options);
     m_binarySplits = Utils.getFlag('B', options);
+    String choice = Utils.getOption("ch", options);
+    System.out.println("The choice is " + choice);
     String confidenceString = Utils.getOption('C', options);
     if (confidenceString.length() != 0) {
       if (m_reducedErrorPruning) {
@@ -715,4 +719,10 @@ public class PART
   public static void main(String [] argv){
     runClassifier(new PART(), argv);
   }
+
+@Override
+public void setChoiceSelection(int choice) {
+	// TODO Auto-generated method stub
+	
+}
 }
