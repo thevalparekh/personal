@@ -1558,23 +1558,23 @@ public class ClassifierPanel extends JPanel implements
             }
 
             if (outputModel) {
-//              outBuff
-//                  .append(Messages
-//                      .getInstance()
-//                      .getString(
-//                          "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentySixth"));
-//              outBuff.append(classifier.toString() + "\n");
-//              outBuff
-//                  .append(Messages
-//                      .getInstance()
-//                      .getString(
-//                          "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentyEighth")
-//                      + Utils.doubleToString(trainTimeElapsed / 1000.0, 2)
-//                      + " "
-//                      + Messages
-//                          .getInstance()
-//                          .getString(
-//                              "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentyNineth"));
+              outBuff
+                  .append(Messages
+                      .getInstance()
+                      .getString(
+                          "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentySixth"));
+              outBuff.append(classifier.toString() + "\n");
+              outBuff
+                  .append(Messages
+                      .getInstance()
+                      .getString(
+                          "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentyEighth")
+                      + Utils.doubleToString(trainTimeElapsed / 1000.0, 2)
+                      + " "
+                      + Messages
+                          .getInstance()
+                          .getString(
+                              "ClassifierPanel_StartClassifier_OutBuffer_Text_TwentyNineth"));
               m_History.updateResult(name);
               if (classifier instanceof Drawable) {
                 grph = null;

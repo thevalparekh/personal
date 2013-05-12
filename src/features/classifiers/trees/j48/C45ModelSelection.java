@@ -158,7 +158,7 @@ public class C45ModelSelection
       minResult = -1;
       secondMinResult = -1;
       int maxAttr = -1;
-      System.out.println("dhaval  choice" + choice);
+      //System.out.println("dhaval  choice" + choice);
       int secondMaxAttr = -1;
 			for (i = 0; i < data.numAttributes(); i++) {
 				if ((i != (data).classIndex()) && (currentModel[i].checkModel())
@@ -191,21 +191,23 @@ public class C45ModelSelection
 					// implementation.
 					
 					if ( choice == 0) {
-						if (Utils.gr(currentModel[i].gainRatio(), minResult)) {
+						if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) 
+								&& Utils.gr(currentModel[i].gainRatio(), minResult)) {
 							bestModel = currentModel[i];
 							minResult = currentModel[i].gainRatio();
 						} 
 					}
 					
 					if (choice == 1) {
-						if (Utils.gr(currentModel[i].gainRatio(), minResult)) {
+						if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) 
+								&& Utils.gr(currentModel[i].gainRatio(), minResult)) {
 							// bestModel = currentModel[i];
 							secondMaxAttr = maxAttr;
 							secondMinResult = minResult;
 							minResult = currentModel[i].gainRatio();
 							maxAttr = i;
-						} else if (Utils.gr(currentModel[i].gainRatio(),
-								secondMinResult)) {
+						} else if ((currentModel[i].infoGain() >= (averageInfoGain-1E-3)) 
+								&& Utils.gr(currentModel[i].gainRatio(), secondMinResult)) {
 							secondMinResult = currentModel[i].gainRatio();
 							secondMaxAttr = i;
 						}
