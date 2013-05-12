@@ -59,7 +59,7 @@ public class C45ModelSelection
    * selection of split points).
    */
   public C45ModelSelection(int minNoObj,int choice, Instances allData) {
-    m_minNoObj = 1 ;
+    m_minNoObj = minNoObj ;
     m_allData = allData;
     this.choice = choice;
   }
